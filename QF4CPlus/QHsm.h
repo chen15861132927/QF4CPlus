@@ -7,6 +7,8 @@
 #include "QEvent.h"
 namespace QtQf4CPlus
 {
+
+
 	class QF4CPLUS_EXPORT QHsm :public IQHsm
 	{
 	public:
@@ -33,24 +35,14 @@ namespace QtQf4CPlus
 
 		void InitializeState(QState state);
 
-		bool IsInState(QState inquiredState)
-		{
-			return true;
-		}
+		bool IsInState(QState inquiredState);
 
-		void Dispatch(shared_ptr<IQEvent> qEvent)
-		{
-		}
+		void Dispatch(shared_ptr<IQEvent> qEvent);
 
-		void DispatchSynchronized(shared_ptr<IQEvent> qEvent)
-		{
-		}
+		void DispatchSynchronized(shared_ptr<IQEvent> qEvent);
 
 		QState TopState;
 
-		void StateTrace(QState state, shared_ptr<QSignal> signal)
-		{
-		}
-
+		void StateTrace(QState state, shared_ptr<QSignal> signal);
 	};
 };

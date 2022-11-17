@@ -7,6 +7,7 @@
 namespace QtQf4CPlus
 {
 	QState QHsm::_sTopState =(QState)QHsm::Top;
+
 #pragma region  public method
 	QHsm::QHsm()
 	{
@@ -19,18 +20,20 @@ namespace QtQf4CPlus
 
 	void QHsm::Init()
 	{
-		assert(_mMyStateMethod == _sTopState); // HSM not executed yet
-		QState stateMethod = _mMyStateMethod; // save m_StateHandler in a temporary
+		assert(_mMyStateMethod == _sTopState); 
+		// save m_StateHandler in a temporary
+		QState stateMethod = _mMyStateMethod; 
 
-		InitializeStateMachine(); // We call into the deriving class
+		InitializeStateMachine();  
 		// initial transition must go *one* level deep
 		auto tempstate = GetSuperStateMethod(_mMyStateMethod);
 		assert(tempstate == stateMethod);
-		stateMethod = _mMyStateMethod; // Note: We only use the temporary
-		//// variable stateMethod so that we can use Assert statements to ensure
-		//// that each transition is only one level deep.
+		// Note: We only use the temporary
+		stateMethod = _mMyStateMethod; 
+		// variable stateMethod so that we can use Assert statements to ensure
+		// that each transition is only one level deep.
 		Trigger(stateMethod, QSignals::Entry);
-		while (Trigger(stateMethod, QSignals::Init) == nullptr) // init handled?
+		while (Trigger(stateMethod, QSignals::Init) == nullptr)  
 		{
 			assert(GetSuperStateMethod(_mMyStateMethod) == stateMethod);
 			stateMethod = _mMyStateMethod;
@@ -38,6 +41,38 @@ namespace QtQf4CPlus
 			Trigger(stateMethod, QSignals::Entry);
 		}
 	}
+
+	void QHsm::Dispatch(shared_ptr<IQEvent> qEvent)
+	{
+		// We let the event bubble up the chain until it is handled by a state handler
+		try
+		{
+			_mMySourceStateMethod = _mMyStateMethod;
+			while (_mMySourceStateMethod != nullptr)
+			{
+				StateTrace(_mMySourceStateMethod, qEvent->GetQSignal()); // ZTG-added
+				QState state = (QState)_mMySourceStateMethod(this, qEvent);
+				if (state != nullptr)
+				{
+					_mMySourceStateMethod = state;
+				}
+				else
+				{
+					_mMySourceStateMethod = nullptr;
+				}
+			}
+		}
+		catch (const char* msg)
+		{
+			//TODO:: add log and stateMethod Name to track it.
+		}
+	}
+
+	void QHsm::DispatchSynchronized(shared_ptr<IQEvent> qEvent)
+	{
+		Dispatch(qEvent);
+	}
+
 #pragma endregion 
 #pragma region protected method
 
@@ -49,6 +84,24 @@ namespace QtQf4CPlus
 		_mMySourceStateMethod = _mMyStateMethod;
 	}
 
+	bool QHsm::IsInState(QState inquiredState)
+	{
+		QState stateMethod;
+		for (stateMethod = _mMyStateMethod;
+			stateMethod != nullptr;
+			stateMethod = GetSuperStateMethod(stateMethod))
+		{
+			if (stateMethod == inquiredState) // do the states match?
+			{
+				return true;
+			}
+		}
+
+		return false; // no match found
+	}
+	void QHsm::StateTrace(QState state, shared_ptr<QSignal> signal)
+	{
+	}
 #pragma endregion 
 #pragma region private method
 
