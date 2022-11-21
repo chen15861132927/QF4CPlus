@@ -7,8 +7,6 @@
 #include "QEvent.h"
 namespace QtQf4CPlus
 {
-
-
 	class QF4CPLUS_EXPORT QHsm :public IQHsm
 	{
 	public:
@@ -17,19 +15,21 @@ namespace QtQf4CPlus
 		void Init();
 
 	private:
-		QState _mMyStateMethod;
-		QState _mMySourceStateMethod;
+		QState m_MyStateMethod;
+		QState m_MySourceStateMethod;
 
-		static QState _sTopState;
+		static shared_ptr<QState> _sTopState;
 
 		static QState Top(shared_ptr<IQEvent> qEvent)
 		{
-			return nullptr;
+			QState empty("Top");
+			return empty;
 		}
 
 		QState GetSuperStateMethod(QState stateMethod);
 
 		QState Trigger(QState stateMethod, shared_ptr<QSignal> qSignal);
+		void ExitUpToSourceState();
 
 	protected:
 

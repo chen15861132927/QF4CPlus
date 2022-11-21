@@ -6,13 +6,13 @@
 #include "QSignals.h"
 namespace QtQf4CPlus
 {
-	QState QHsm::_sTopState =(QState)QHsm::Top;
+	shared_ptr<QState> QHsm::_sTopState =make_shared<QState>((QStateBase)QHsm::Top,("Top"));
 
 #pragma region  public method
 	QHsm::QHsm()
 	{
-		_mMyStateMethod = _sTopState;
-		TopState = _sTopState;
+		m_MyStateMethod = *_sTopState;
+		TopState = *_sTopState;
 	}
 	QHsm::~QHsm()
 	{
@@ -20,23 +20,23 @@ namespace QtQf4CPlus
 
 	void QHsm::Init()
 	{
-		assert(_mMyStateMethod == _sTopState); 
+		assert(m_MyStateMethod.QStateFun == _sTopState->QStateFun);
 		// save m_StateHandler in a temporary
-		QState stateMethod = _mMyStateMethod; 
+		QState stateMethod = m_MyStateMethod; 
 
 		InitializeStateMachine();  
 		// initial transition must go *one* level deep
-		auto tempstate = GetSuperStateMethod(_mMyStateMethod);
+		auto tempstate = GetSuperStateMethod(m_MyStateMethod);
 		assert(tempstate == stateMethod);
 		// Note: We only use the temporary
-		stateMethod = _mMyStateMethod; 
+		stateMethod = m_MyStateMethod; 
 		// variable stateMethod so that we can use Assert statements to ensure
 		// that each transition is only one level deep.
 		Trigger(stateMethod, QSignals::Entry);
 		while (Trigger(stateMethod, QSignals::Init) == nullptr)  
 		{
-			assert(GetSuperStateMethod(_mMyStateMethod) == stateMethod);
-			stateMethod = _mMyStateMethod;
+			assert(GetSuperStateMethod(m_MyStateMethod) == stateMethod);
+			stateMethod = m_MyStateMethod;
 
 			Trigger(stateMethod, QSignals::Entry);
 		}
@@ -47,18 +47,19 @@ namespace QtQf4CPlus
 		// We let the event bubble up the chain until it is handled by a state handler
 		try
 		{
-			_mMySourceStateMethod = _mMyStateMethod;
-			while (_mMySourceStateMethod != nullptr)
+			m_MySourceStateMethod = m_MyStateMethod;
+			while (m_MySourceStateMethod != nullptr)
 			{
-				StateTrace(_mMySourceStateMethod, qEvent->GetQSignal()); // ZTG-added
-				QState state = (QState)_mMySourceStateMethod(this, qEvent);
+				StateTrace(m_MySourceStateMethod, qEvent->GetQSignal()); // ZTG-added
+				QState state = ((QStateCall)m_MySourceStateMethod.QStateFun)(this, qEvent);
+
 				if (state != nullptr)
 				{
-					_mMySourceStateMethod = state;
+					m_MySourceStateMethod = state;
 				}
 				else
 				{
-					_mMySourceStateMethod = nullptr;
+					m_MySourceStateMethod.QStateFun = nullptr;
 				}
 			}
 		}
@@ -78,17 +79,17 @@ namespace QtQf4CPlus
 
 	void QHsm::InitializeState(QState state)
 	{
-		_mMyStateMethod = state;
+		m_MyStateMethod = state;
 
 		// try setting this in cases of transitionTo before any Dispatches
-		_mMySourceStateMethod = _mMyStateMethod;
+		m_MySourceStateMethod = m_MyStateMethod;
 	}
 
 	bool QHsm::IsInState(QState inquiredState)
 	{
-		QState stateMethod;
-		for (stateMethod = _mMyStateMethod;
-			stateMethod != nullptr;
+		QState stateMethod=nullptr;
+		for (stateMethod = m_MyStateMethod;
+			stateMethod.QStateFun != nullptr;
 			stateMethod = GetSuperStateMethod(stateMethod))
 		{
 			if (stateMethod == inquiredState) // do the states match?
@@ -107,8 +108,9 @@ namespace QtQf4CPlus
 
 	QState QHsm::GetSuperStateMethod(QState stateMethod)
 	{
-		QState superState = (QState)stateMethod(this, make_shared<QEvent>(QSignals::Empty));
-		if (superState != nullptr)
+		QState superState = ((QStateCall)stateMethod.QStateFun)(this, make_shared<QEvent>(QSignals::Empty));
+
+		if (superState.QStateFun != nullptr)
 		{
 			return superState;
 		}
@@ -121,14 +123,24 @@ namespace QtQf4CPlus
 	QState QHsm::Trigger(QState stateMethod, shared_ptr<QSignal> qSignal)
 	{
 		StateTrace(stateMethod, qSignal); // ZTG-added
-		QState state = (QState)stateMethod(this, make_shared<QEvent>(qSignal));
-		if (state == nullptr)
+		QState state = ((QStateCall)stateMethod.QStateFun)(this, make_shared<QEvent>(qSignal));
+		if (state.QStateFun == nullptr)
 		{
 			return nullptr;
 		}
 		else
 		{
 			return state;
+		}
+	}
+
+	void QHsm::ExitUpToSourceState()
+	{
+		QState methodInfo = m_MyStateMethod;
+		while (methodInfo != m_MySourceStateMethod)
+		{
+			QState methodInfo2 = Trigger(methodInfo, QSignals::Exit);
+			methodInfo = ((!(methodInfo2.QStateFun != nullptr)) ? GetSuperStateMethod(methodInfo) : methodInfo2);
 		}
 	}
 #pragma endregion
