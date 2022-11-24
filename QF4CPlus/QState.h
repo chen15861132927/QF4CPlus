@@ -13,11 +13,11 @@ namespace QtQf4CPlus
 {
 	typedef void* (*QStateBase)(void* const me, shared_ptr<IQEvent> qEvent);
 
-	struct QState:QObject
+	struct QState :QObject
 	{
 		QStateBase QStateFun;
 		QString Name;
-		QState(const QState &b)
+		QState(const QState& b)
 		{
 			QStateFun = b.QStateFun;
 			Name = b.Name;
@@ -45,16 +45,21 @@ namespace QtQf4CPlus
 		}
 		bool operator==(std::nullptr_t)
 		{
-			return this == nullptr;
+			return this == nullptr|| this->QStateFun == nullptr;
 		}
 		bool operator!=(std::nullptr_t)
 		{
-			return this != nullptr;
+			return this != nullptr && this->QStateFun != nullptr;
 		}
-		void operator=(const QState &b)
+		void operator=(const QState& b)
 		{
 			this->QStateFun = b.QStateFun;
 			this->Name = b.Name;
+		}
+		void operator=(std::nullptr_t)
+		{
+			this->QStateFun = nullptr;
+			this->Name = nullptr;
 		}
 		bool operator!=(QState b)
 		{
@@ -72,7 +77,7 @@ namespace QtQf4CPlus
 	};
 
 
-	typedef QState (*QStateCall)(void* const me, shared_ptr<IQEvent> qEvent);
+	typedef QState(*QStateCall)(void* const me, shared_ptr<IQEvent> qEvent);
 
 #define Q_STATE(subclass_, state_) \
     static QState state_(void* const me, shared_ptr<IQEvent> qEvent)\

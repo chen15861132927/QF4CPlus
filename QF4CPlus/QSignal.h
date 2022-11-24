@@ -26,6 +26,7 @@ namespace QtQf4CPlus
 		explicit operator int();
 		bool operator ==(QSignal lhs);
 		bool operator !=(QSignal lhs);
+
 		int GetHashCode();
 
 	};

@@ -17,6 +17,9 @@
       <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
       <Extensions>ts</Extensions>
     </Filter>
+    <Filter Include="Tools">
+      <UniqueIdentifier>{886664f7-b832-41a9-bc19-e30ca846edbf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="qf4cplus_global.h">
@@ -41,6 +44,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="QSignals.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TransitionChain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
