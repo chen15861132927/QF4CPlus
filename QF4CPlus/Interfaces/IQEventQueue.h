@@ -14,10 +14,10 @@ namespace QtQf4CPlus
 
 		virtual int Count()=0;
 
-		virtual	void EnqueueFIFO(IQEvent qEvent) = 0;
+		virtual	void EnqueueFIFO(shared_ptr<IQEvent> qEvent) = 0;
 
-		virtual	void EnqueueLIFO(IQEvent qEvent) = 0;
+		virtual	void EnqueueLIFO(shared_ptr<IQEvent> qEvent) = 0;
 
-		virtual	IQEvent DeQueue() = 0;
+		virtual	shared_ptr<IQEvent> DeQueue() = 0;
 	};
 };

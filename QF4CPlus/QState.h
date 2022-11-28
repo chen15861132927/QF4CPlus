@@ -3,7 +3,7 @@
 #include "qf4cplus_global.h"
 #include <QObject>
 #include "Signal.h"
-#include "IQEvent.h"
+#include "Interfaces/IQEvent.h"
 #include <functional>
 #include <memory>
 

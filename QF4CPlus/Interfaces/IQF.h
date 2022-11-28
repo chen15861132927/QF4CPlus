@@ -7,7 +7,7 @@
 
 namespace QtQf4CPlus
 {
-	class QF4CPLUS_EXPORT IQF
+	class QF4CPLUS_EXPORT QF4CPLUS_EXPORT IQF
 	{
 	public:
 		virtual	void Initialize(int maxSignal) = 0;

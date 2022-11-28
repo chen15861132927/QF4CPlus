@@ -87,19 +87,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="QEventQueue.cpp" />
     <ClCompile Include="QHsm.cpp" />
     <ClCompile Include="QSignal.cpp" />
-    <ClInclude Include="IQActive.h" />
+    <ClInclude Include="Interfaces\IQActive.h" />
+    <QtMoc Include="Interfaces\IQEvent.h" />
+    <ClInclude Include="Interfaces\IQEventQueue.h" />
+    <ClInclude Include="Interfaces\IQF.h" />
+    <ClInclude Include="Interfaces\IQHsm.h" />
+    <ClInclude Include="QEventQueue.h" />
     <ClInclude Include="QHsm.h" />
     <ClInclude Include="QState.h" />
     <ClInclude Include="QSignals.h" />
     <ClInclude Include="TransitionChain.h" />
     <QtMoc Include="QSignal.h" />
     <QtMoc Include="QEvent.h" />
-    <QtMoc Include="IQEvent.h" />
-    <ClInclude Include="IQEventQueue.h" />
-    <ClInclude Include="IQF.h" />
-    <ClInclude Include="IQHsm.h" />
     <ClInclude Include="qf4cplus_global.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

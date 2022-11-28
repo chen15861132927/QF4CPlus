@@ -17,24 +17,12 @@
       <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
       <Extensions>ts</Extensions>
     </Filter>
-    <Filter Include="Tools">
-      <UniqueIdentifier>{886664f7-b832-41a9-bc19-e30ca846edbf}</UniqueIdentifier>
+    <Filter Include="Interfaces">
+      <UniqueIdentifier>{f08ecfb4-215f-4d4f-82e0-2b302f37bb83}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="qf4cplus_global.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="IQActive.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="IQEventQueue.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="IQF.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="IQHsm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="QHsm.h">
@@ -49,16 +37,31 @@
     <ClInclude Include="TransitionChain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Interfaces\IQActive.h">
+      <Filter>Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Interfaces\IQEventQueue.h">
+      <Filter>Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Interfaces\IQF.h">
+      <Filter>Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Interfaces\IQHsm.h">
+      <Filter>Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="QEventQueue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="QEvent.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="IQEvent.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="QSignal.h">
       <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Interfaces\IQEvent.h">
+      <Filter>Interfaces</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
@@ -66,6 +69,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="QSignal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="QEventQueue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

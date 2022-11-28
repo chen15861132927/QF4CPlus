@@ -3,7 +3,7 @@
 #include "qf4cplus_global.h"
 #include <QObject>
 #include "QState.h"
-#include "IQHsm.h"
+#include "Interfaces/IQHsm.h"
 #include "QEvent.h"
 #include "QSignal.h"
 #include "QSignals.h"

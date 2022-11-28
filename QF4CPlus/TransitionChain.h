@@ -18,7 +18,7 @@ namespace QtQf4CPlus
             m_qSignal = _qSignal;
         }
     };
-    class TransitionChain
+    class QF4CPLUS_EXPORT TransitionChain
     {
     public:
         TransitionChain()
