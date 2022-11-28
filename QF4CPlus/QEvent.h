@@ -19,7 +19,7 @@ namespace QtQf4CPlus
 		shared_ptr<QObject> _eventObject;
 
 	public:
-		const shared_ptr<QSignal> getQSignal()
+		const shared_ptr<QSignal> signal()
 		{
 			return _signal;
 		}

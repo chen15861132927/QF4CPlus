@@ -79,15 +79,15 @@ namespace QtQf4CPlus
 
 	typedef QState(*QStateCall)(void* const me, shared_ptr<IQEvent> qEvent);
 
-#define Q_STATE(subclass_, state_) \
+#define Q_STATE_DECL(subclass_, state_) \
     static QState state_(void* const me, shared_ptr<IQEvent> qEvent)\
 	{ \
-        return static_cast<subclass_ *>(me)->state_ ## _call(qEvent);\
+        return static_cast<subclass_ *>(me)->state_ ## _handle(qEvent);\
 	} \
-    QState state_ ## _call(shared_ptr<IQEvent> qEvent)
+    QState state_ ## _handle(shared_ptr<IQEvent> qEvent)
 
-#define Q_STATEFUN(subclass_, state_) \
-    QState subclass_::state_ ## _call(shared_ptr<IQEvent> qEvent)
+#define Q_STATE_DEF(subclass_, state_) \
+    QState subclass_::state_ ## _handle(shared_ptr<IQEvent> qEvent)
 
 #define Q_SET(pro,method)\
 	pro=QState((QStateBase)method,#method);

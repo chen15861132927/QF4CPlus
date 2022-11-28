@@ -33,25 +33,25 @@ void QHsmTest::InitializeStateMachine()
 	InitializeState(m_sA); // initial transition			
 }
 
-Q_STATEFUN(QHsmTest, sA)
+Q_STATE_DEF(QHsmTest, sA)
 {
-	if (qEvent->getQSignal() == QSignals::Entry)
+	if (qEvent->signal() == QSignals::Entry)
 	{
 		cout << "sA-ENTRY;";
 		return nullptr;
 	}
-	else if (qEvent->getQSignal() == QSignals::Exit)
+	else if (qEvent->signal() == QSignals::Exit)
 	{
 		cout << "sA-EXIT;";
 		return nullptr;;
 	}
-	else if (qEvent->getQSignal() == MyQSignals::E4_Sig)
+	else if (qEvent->signal() == MyQSignals::E4_Sig)
 	{
 		cout << "sA-E4_Sig;";
 		TransitionTo(m_sB);
 		return nullptr;;
 	}
-	else if (qEvent->getQSignal() == QSignals::Init)
+	else if (qEvent->signal() == QSignals::Init)
 	{
 		cout << "sA-INIT;";
 		InitializeState(m_sAA);
@@ -61,19 +61,19 @@ Q_STATEFUN(QHsmTest, sA)
 	return this->TopState;
 }
 
-QState QHsmTest::sAA_call(shared_ptr<IQEvent> qEvent)
+Q_STATE_DEF(QHsmTest,sAA)
 {
-	if (qEvent->getQSignal() == QSignals::Entry)
+	if (qEvent->signal() == QSignals::Entry)
 	{
 		cout << "sAA-ENTRY;";
 		return nullptr;
 	}
-	else if (qEvent->getQSignal() == QSignals::Exit)
+	else if (qEvent->signal() == QSignals::Exit)
 	{
 		cout << "sAA-EXIT;";
 		return nullptr;
 	}
-	else if (qEvent->getQSignal() == MyQSignals::E1_Sig)
+	else if (qEvent->signal() == MyQSignals::E1_Sig)
 	{
 		cout << "sAA-E1_Sig;";
 		TransitionTo(m_sAB);
@@ -85,25 +85,25 @@ QState QHsmTest::sAA_call(shared_ptr<IQEvent> qEvent)
 
 
 
-Q_STATEFUN(QHsmTest, sAB)
+Q_STATE_DEF(QHsmTest, sAB)
 {
-	if (qEvent->getQSignal() == QSignals::Entry)
+	if (qEvent->signal() == QSignals::Entry)
 	{
 		cout << "sAB-ENTRY;";
 		return nullptr;
 	}
-	else if (qEvent->getQSignal() == QSignals::Exit)
+	else if (qEvent->signal() == QSignals::Exit)
 	{
 		cout << "sAB-EXIT;";
 		return nullptr;
 	}
-	else if (qEvent->getQSignal() == MyQSignals::E2_Sig)
+	else if (qEvent->signal() == MyQSignals::E2_Sig)
 	{
 		cout << "sAB-E2_Sig;";
 		TransitionTo(m_sAA, s_Tran_sAB_sAA);
 		return nullptr;
 	}
-	else if (qEvent->getQSignal() == MyQSignals::E3_Sig)
+	else if (qEvent->signal() == MyQSignals::E3_Sig)
 	{
 		cout << "sAB-E3_Sig;";
 		TransitionTo(m_sBB, s_Tran_sAB_sBB);
@@ -114,19 +114,19 @@ Q_STATEFUN(QHsmTest, sAB)
 
 //private static TransitionChain s_Tran_s2_s1;
 //private static TransitionChain s_Tran_s2_s11;
-Q_STATEFUN(QHsmTest, sB)
+Q_STATE_DEF(QHsmTest, sB)
 {
-	if (qEvent->getQSignal() == QSignals::Entry)
+	if (qEvent->signal() == QSignals::Entry)
 	{
 		cout << "sB-ENTRY;";
 		return nullptr;
 	}
-	else if (qEvent->getQSignal() == QSignals::Exit)
+	else if (qEvent->signal() == QSignals::Exit)
 	{
 		cout << "sB-EXIT;";
 		return nullptr;
 	}
-	else if (qEvent->getQSignal() == QSignals::Init)
+	else if (qEvent->signal() == QSignals::Init)
 	{
 		cout << "sB-INIT;";
 		InitializeState(m_sBA);
@@ -136,26 +136,26 @@ Q_STATEFUN(QHsmTest, sB)
 	return this->TopState;
 }
 
-Q_STATEFUN(QHsmTest, sBA)
+Q_STATE_DEF(QHsmTest, sBA)
 
 {
-	if (qEvent->getQSignal() == QSignals::Entry)
+	if (qEvent->signal() == QSignals::Entry)
 	{
 		cout << "sBA-ENTRY;";
 		return nullptr;
 	}
-	else if (qEvent->getQSignal() == QSignals::Exit)
+	else if (qEvent->signal() == QSignals::Exit)
 	{
 		cout << "sBA-EXIT;";
 		return nullptr;
 	}
-	else if (qEvent->getQSignal() == MyQSignals::E1_Sig)
+	else if (qEvent->signal() == MyQSignals::E1_Sig)
 	{
 		cout << "sBA-E1_Sig;";
 		TransitionTo(m_sBB, s_Tran_sBA_sBB);
 		return nullptr;
 	}
-	else if (qEvent->getQSignal() == MyQSignals::E2_Sig)
+	else if (qEvent->signal() == MyQSignals::E2_Sig)
 	{
 		cout << "sBA-E2_Sig;";
 		TransitionTo(m_sA, s_Tran_sBA_sA);
@@ -164,20 +164,20 @@ Q_STATEFUN(QHsmTest, sBA)
 	return m_sB;
 }
 
-Q_STATEFUN(QHsmTest, sBB)
+Q_STATE_DEF(QHsmTest, sBB)
 
 {
-	if (qEvent->getQSignal() == QSignals::Entry)
+	if (qEvent->signal() == QSignals::Entry)
 	{
 		cout << "sBB-ENTRY;";
 		return nullptr;
 	}
-	else if (qEvent->getQSignal() == QSignals::Exit)
+	else if (qEvent->signal() == QSignals::Exit)
 	{
 		cout << "sBB-EXIT;";
 		return nullptr;
 	}
-	else if (qEvent->getQSignal() == MyQSignals::E2_Sig)
+	else if (qEvent->signal() == MyQSignals::E2_Sig)
 	{
 		cout << "sBB-E2_Sig;";
 		TransitionTo(m_sBA, s_Tran_sBB_sBA);

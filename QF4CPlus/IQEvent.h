@@ -12,7 +12,7 @@ namespace QtQf4CPlus
 	{
 		Q_OBJECT
 	public:
-		virtual const shared_ptr<QSignal> getQSignal() =0;
+		virtual const shared_ptr<QSignal> signal() =0;
 
 		//virtual bool IsSignal(Signal sig) = 0;
 

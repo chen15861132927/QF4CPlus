@@ -48,7 +48,7 @@ namespace QtQf4CPlus
 			m_mySourceStateMethod = m_myStateMethod;
 			while (m_mySourceStateMethod != nullptr)
 			{
-				StateTrace(m_mySourceStateMethod, qEvent->getQSignal()); // ZTG-added
+				StateTrace(m_mySourceStateMethod, qEvent->signal()); // ZTG-added
 				QState state = ((QStateCall)m_mySourceStateMethod.QStateFun)(this, qEvent);
 
 				if (state != nullptr)

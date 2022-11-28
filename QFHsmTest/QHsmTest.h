@@ -35,18 +35,14 @@ protected:
 	void InitializeStateMachine() override;
 
 	//Q_STATE(QHsmTest, s0);
-	Q_STATE(QHsmTest, sA);
-	//Q_STATE(QHsmTest, sAA);
-	static QState sAA(void* const me, shared_ptr<IQEvent> qEvent)
-	{
-		QState temp = static_cast<QHsmTest*>(me)->sAA_call(qEvent);
-		return temp;
-	}
+	Q_STATE_DECL(QHsmTest, sA);
+	Q_STATE_DECL(QHsmTest, sAA);
+	
 	QState sAA_call(shared_ptr<IQEvent> qEvent);
-	Q_STATE(QHsmTest, sAB);
-	Q_STATE(QHsmTest, sB);
-	Q_STATE(QHsmTest, sBA);
-	Q_STATE(QHsmTest, sBB);
+	Q_STATE_DECL(QHsmTest, sAB);
+	Q_STATE_DECL(QHsmTest, sB);
+	Q_STATE_DECL(QHsmTest, sBA);
+	Q_STATE_DECL(QHsmTest, sBB);
 
 
 	static shared_ptr<TransitionChain> s_Tran_sAB_sAA;
