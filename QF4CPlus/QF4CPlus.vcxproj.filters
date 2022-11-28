@@ -52,6 +52,12 @@
     <ClInclude Include="QEventQueue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="IRegularThread.h">
+      <Filter>Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="QActive.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="QEvent.h">
@@ -72,6 +78,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="QEventQueue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="QActive.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -14,8 +14,6 @@ namespace QtQf4CPlus
 	public:
 		virtual const shared_ptr<QSignal> signal() =0;
 
-		//virtual bool IsSignal(Signal sig) = 0;
-
 		virtual QString ToString() = 0;
 	};
 }

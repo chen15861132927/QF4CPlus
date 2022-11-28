@@ -19,5 +19,7 @@ namespace QtQf4CPlus
 		virtual	void EnqueueLIFO(shared_ptr<IQEvent> qEvent) = 0;
 
 		virtual	shared_ptr<IQEvent> DeQueue() = 0;
+
+		virtual	shared_ptr<IQEvent> Peek() = 0;
 	};
 };
