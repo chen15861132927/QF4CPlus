@@ -47,7 +47,7 @@ namespace QtQf4CPlus
 
 		QString ToString()
 		{
-			return _signal->ToString();
+			return _signal->ToString()+ _signal->GetHashCode();
 		}
 
 		int GetHashCode()

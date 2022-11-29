@@ -1,22 +1,23 @@
 #pragma once
 #include <QThread>
-#include "Interfaces/IQActive.h"
+ 
+#include "QHsm.h"
+#include <qDebug>
+class QFActive;
 namespace QtQf4CPlus
 {
 	class QF4CPLUS_EXPORT IRegularThread : public QThread
 	{
-
 	public:
-		AOThread(shared_ptr<IQActive> act)
-			: m_act(act),
-			m_isRunning(false)
-		{
-		}
-		virtual ~AOThread() = 0;
-		virtual void run() = 0;
+		IRegularThread(shared_ptr<QFActive> act);
+		//............................................................................
+		~IRegularThread();
+		//............................................................................
+		void run();
 
-	public:
-		shared_ptr<IQActive> m_act;
+  
+	private:
+		shared_ptr<QFActive> m_act;
 		bool  m_isRunning;
 	};
 
