@@ -1,5 +1,5 @@
 #pragma once
-#include "../QF4CPlus/QHsm.h"
+#include "../QF4CPlus/QActive.h"
 using namespace QtQf4CPlus;
 class MyQSignals
 {
@@ -16,8 +16,7 @@ public:
 
 
 
-class QHsmTest :
-	public QHsm
+class QHsmTest :	public QActive
 {
 public:
 	QHsmTest();

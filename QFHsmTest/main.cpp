@@ -2,17 +2,18 @@
 #include "QHsmTest.h"
 #include <iostream>
 #include "QEvent.h"
+#include "../QF4CPlus/QActive.h"
+#include "../QF4CPlus/QF.h"
 
 using namespace QtQf4CPlus;
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
-    QHsmTest hsm;
-
-    hsm.Init();
+	QHsmTest hsm;
+	hsm.start(1);
 	for (;;)
 	{
-		cout<<"\nSignal<-";
+		cout<<"currentThreadId:" << QThread::currentThreadId()<<endl << "Signal<-";
 		char inputchar;
 		cin >> inputchar;
 		if (inputchar == -1)
@@ -48,7 +49,8 @@ int main(int argc, char *argv[])
 				{
 					input = MyQSignals::E5_Sig;
 				}
-				hsm.Dispatch(make_shared<QtQf4CPlus::QEvent>(input));
+				QF::getInstance()->Publish(make_shared<QtQf4CPlus::QEvent>(input));
+				//hsm.Dispatch(make_shared<QtQf4CPlus::QEvent>(input));
 			}
 		}
 	}

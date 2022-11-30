@@ -3,7 +3,7 @@
 #include "qf4cplus_global.h"
 #include <QObject>
 #include "Signal.h"
-#include "IQActive.h"
+#include "../QActive.h"
 
 namespace QtQf4CPlus
 {
@@ -12,10 +12,10 @@ namespace QtQf4CPlus
 	public:
 		virtual	void Initialize(int maxSignal) = 0;
 
-		virtual	void Subscribe(IQActive qActive, Signal qSignal) = 0;
+		virtual	void Subscribe(QActive* qActive, shared_ptr<QSignal> qSignal) = 0;
 
-		virtual	void Unsubscribe(IQActive qActive, Signal qSignal) = 0;
+		virtual	void Unsubscribe(QActive* qActive, shared_ptr<QSignal> qSignal) = 0;
 
-		virtual	void Publish(QEvent qEvent) = 0;
+		virtual void Publish(shared_ptr<QEvent> qEvent)=0;
 	};
 };

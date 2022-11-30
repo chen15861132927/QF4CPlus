@@ -15,7 +15,7 @@ int QActive::GetPriority()
 	return m_index;
 }
 
-void QActive::Start(int index)
+void QActive::start(int index)
 {
 	/*if (m_ExecutionThread != nullptr)
 	{
@@ -26,7 +26,7 @@ void QActive::Start(int index)
 		throw new exception("The priority of an Active Object cannot be negative,priority");
 	}
 	m_index = index;
-	start();
+	QThread::start();
 }
 void QActive::PostFIFO(shared_ptr<IQEvent> qEvent)
 {
@@ -50,6 +50,7 @@ void QActive::PostLIFO(shared_ptr<IQEvent> qEvent)
 void QActive::run()
 {
 	this->m_isRunning = true;
+	Init();
 
 	// event-loop
 	while (true)

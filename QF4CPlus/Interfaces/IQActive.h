@@ -14,7 +14,7 @@ namespace QtQf4CPlus
 	public:
 		virtual int GetPriority() = 0;
 
-		virtual	void Start(int priority) = 0;
+		virtual	void start(int priority) = 0;
 
 		virtual void PostFIFO(shared_ptr<IQEvent> qEvent) = 0;
 

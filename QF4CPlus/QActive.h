@@ -23,7 +23,7 @@ namespace QtQf4CPlus
 		~QActive();
 		int GetPriority();
 
-		void Start(int index);
+		void start(int index);
 
 		void PostFIFO(shared_ptr<IQEvent> qEvent);
 
