@@ -72,6 +72,9 @@
     <QtMoc Include="Interfaces\IQEvent.h">
       <Filter>Interfaces</Filter>
     </QtMoc>
+    <QtMoc Include="QFTimer.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="QHsm.cpp">
@@ -87,6 +90,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="QF.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="QFTimer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

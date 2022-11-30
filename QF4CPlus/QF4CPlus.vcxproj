@@ -90,6 +90,7 @@
     <ClCompile Include="QActive.cpp" />
     <ClCompile Include="QEventQueue.cpp" />
     <ClCompile Include="QF.cpp" />
+    <ClCompile Include="QFTimer.cpp" />
     <ClCompile Include="QHsm.cpp" />
     <ClCompile Include="QSignal.cpp" />
     <ClInclude Include="Interfaces\IQActive.h" />
@@ -101,6 +102,7 @@
     <ClInclude Include="QActive.h" />
     <ClInclude Include="QEventQueue.h" />
     <ClInclude Include="QF.h" />
+    <QtMoc Include="QFTimer.h" />
     <ClInclude Include="QHsm.h" />
     <ClInclude Include="QState.h" />
     <ClInclude Include="QSignals.h" />
