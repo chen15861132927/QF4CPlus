@@ -1,7 +1,7 @@
 #include "QHsmTest.h"
 #include <qDebug>
 #include <iostream>
-#include "../QF4CPlus/QF.h"
+#include "../../src/QF4CPlus/QF.h"
 shared_ptr<QSignal> MyQSignals::E1_Sig = std::make_shared<QSignal>("E1_Sig");
 shared_ptr<QSignal> MyQSignals::E2_Sig = std::make_shared<QSignal>("E2_Sig");
 shared_ptr<QSignal> MyQSignals::E3_Sig = std::make_shared<QSignal>("E3_Sig");

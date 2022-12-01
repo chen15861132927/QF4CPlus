@@ -2,8 +2,8 @@
 #include "QHsmTest.h"
 #include <iostream>
 #include "QEvent.h"
-#include "../QF4CPlus/QActive.h"
-#include "../QF4CPlus/QF.h"
+#include "../../src/QF4CPlus/QActive.h"
+#include "../../src/QF4CPlus/QF.h"
 
 using namespace QtQf4CPlus;
 int main(int argc, char *argv[])

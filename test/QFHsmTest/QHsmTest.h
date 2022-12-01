@@ -1,5 +1,5 @@
 #pragma once
-#include "../QF4CPlus/QActive.h"
+#include "../../src/QF4CPlus/QActive.h"
 using namespace QtQf4CPlus;
 class MyQSignals
 {

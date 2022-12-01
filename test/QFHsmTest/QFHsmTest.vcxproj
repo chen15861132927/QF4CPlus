@@ -92,7 +92,7 @@
     <ClInclude Include="QHsmTest.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\QF4CPlus\QF4CPlus.vcxproj">
+    <ProjectReference Include="..\..\src\QF4CPlus\QF4CPlus.vcxproj">
       <Project>{7a8711ab-0313-450e-8886-0d49e030f49c}</Project>
     </ProjectReference>
   </ItemGroup>
