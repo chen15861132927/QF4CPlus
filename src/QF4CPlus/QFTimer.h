@@ -13,13 +13,13 @@ namespace QtQf4CPlus
 
 		QTimer m_Timer;
 
-		shared_ptr<QEvent> m_QEvent;
+		shared_ptr<QFEvent> m_QEvent;
 
 	public:
 		QFTimer(QActive* qActive);
 		~QFTimer();
 
-		void singleShot(int msec, shared_ptr<QEvent> qEvent);
+		void singleShot(int msec, shared_ptr<QFEvent> qEvent);
 
 		void stop();
 

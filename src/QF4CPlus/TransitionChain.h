@@ -9,10 +9,10 @@ namespace QtQf4CPlus
 {
     struct TransitionStep
     {
-        QState m_stateMethod;
+        QFState m_stateMethod;
         shared_ptr<QSignal> m_qSignal;
 
-        TransitionStep(QState _stateMethod, shared_ptr<QSignal>  _qSignal)
+        TransitionStep(QFState _stateMethod, shared_ptr<QSignal>  _qSignal)
         {
             m_stateMethod = _stateMethod;
             m_qSignal = _qSignal;

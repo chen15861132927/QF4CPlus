@@ -16,6 +16,6 @@ namespace QtQf4CPlus
 
 		virtual	void Unsubscribe(QActive* qActive, shared_ptr<QSignal> qSignal) = 0;
 
-		virtual void Publish(shared_ptr<QEvent> qEvent)=0;
+		virtual void Publish(shared_ptr<QFEvent> qEvent)=0;
 	};
 };

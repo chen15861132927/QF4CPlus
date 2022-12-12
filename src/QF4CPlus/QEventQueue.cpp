@@ -26,7 +26,7 @@ int QEventQueue::Count()
 	return count;
 }
 
-void QEventQueue::EnqueueFIFO(shared_ptr<IQEvent> qEvent)
+void QEventQueue::EnqueueFIFO(shared_ptr<IQFEvent> qEvent)
 {
 	mutex.lock();
 	_mEventList.push_back(qEvent);
@@ -34,7 +34,7 @@ void QEventQueue::EnqueueFIFO(shared_ptr<IQEvent> qEvent)
 	mutex.unlock();
 }
 
-void QEventQueue::EnqueueLIFO(shared_ptr<IQEvent> qEvent)
+void QEventQueue::EnqueueLIFO(shared_ptr<IQFEvent> qEvent)
 {
 	mutex.lock();
 	_mEventList.push_front(qEvent);
@@ -42,7 +42,7 @@ void QEventQueue::EnqueueLIFO(shared_ptr<IQEvent> qEvent)
 	mutex.unlock();
 }
 
-shared_ptr<IQEvent> QEventQueue::DeQueue()
+shared_ptr<IQFEvent> QEventQueue::DeQueue()
 {
 	mutex.lock();
 	if (_mEventList.isEmpty())
@@ -55,7 +55,7 @@ shared_ptr<IQEvent> QEventQueue::DeQueue()
 	return res;
 }
 
-shared_ptr<IQEvent>  QEventQueue::Peek()
+shared_ptr<IQFEvent>  QEventQueue::Peek()
 {
 	mutex.lock();
 	if (_mEventList.isEmpty())

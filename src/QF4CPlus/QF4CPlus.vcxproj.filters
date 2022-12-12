@@ -63,16 +63,16 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="QEvent.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="QSignal.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="Interfaces\IQEvent.h">
-      <Filter>Interfaces</Filter>
-    </QtMoc>
     <QtMoc Include="QFTimer.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="QFEvent.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Interfaces\IQFEvent.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

@@ -10,3 +10,5 @@
 /src/QF4CPlus/Release
 /Debug
 /.vs
+/test/QF4CPlus_VS_QtStateMachine/Release
+/test/QF4CPlus_VS_QtStateMachine/Debug

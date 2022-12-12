@@ -54,7 +54,7 @@ void QF::Unsubscribe(QActive* qActive, shared_ptr<QSignal> qSignal)
 	mutex.unlock();
 }
 
-void QF::Publish(shared_ptr<QEvent> qEvent)
+void QF::Publish(shared_ptr<QFEvent> qEvent)
 {
 	mutex.lock();
 	auto findsignals = _mSignalSubscribers.find(qEvent->signal()->GetHashCode());

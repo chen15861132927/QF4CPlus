@@ -28,6 +28,6 @@ namespace QtQf4CPlus
 
 		void Unsubscribe(QActive* qActive, shared_ptr<QSignal> qSignal);
 
-		void Publish(shared_ptr<QEvent> qEvent);
+		void Publish(shared_ptr<QFEvent> qEvent);
 	};
 };

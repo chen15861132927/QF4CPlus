@@ -10,7 +10,7 @@ QFTimer::~QFTimer()
 {
 }
 
-void QFTimer::singleShot(int msec, shared_ptr<QEvent> qEvent)
+void QFTimer::singleShot(int msec, shared_ptr<QFEvent> qEvent)
 {
 	m_QEvent = qEvent;
 	connect(&m_Timer, &QTimer::timeout, this, &QFTimer::onTimeOut);

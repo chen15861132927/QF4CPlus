@@ -49,8 +49,8 @@ int main(int argc, char *argv[])
 				{
 					input = MyQSignals::E5_Sig;
 				}
-				QF::getInstance()->Publish(make_shared<QtQf4CPlus::QEvent>(input));
-				//hsm.Dispatch(make_shared<QtQf4CPlus::QEvent>(input));
+				QF::getInstance()->Publish(make_shared<QtQf4CPlus::QFEvent>(input));
+				//hsm.Dispatch(make_shared<QtQf4CPlus::QFEvent>(input));
 			}
 		}
 	}

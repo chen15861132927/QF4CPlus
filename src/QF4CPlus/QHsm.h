@@ -4,7 +4,7 @@
 #include <QObject>
 #include "QState.h"
 #include "Interfaces/IQHsm.h"
-#include "QEvent.h"
+#include "QFEvent.h"
 #include "QSignal.h"
 #include "QSignals.h"
 #include "TransitionChain.h"
@@ -24,7 +24,7 @@ namespace QtQf4CPlus
 		private:
 			TransitionChain m_transitionSteps;
 		public:
-			void Record(QState stateMethod, shared_ptr<QSignal> signal)
+			void Record(QFState stateMethod, shared_ptr<QSignal> signal)
 			{
 				m_transitionSteps.append(TransitionStep(stateMethod, signal));
 			}
@@ -62,49 +62,49 @@ namespace QtQf4CPlus
 		~QHsm();
 		void Init();
 		QString getCurrentStateName();
-		void Dispatch(shared_ptr<IQEvent> qEvent);
+		void Dispatch(shared_ptr<IQFEvent> qEvent);
 
 	private:
-		QState m_myStateMethod;
-		QState m_mySourceStateMethod;
+		QFState m_myStateMethod;
+		QFState m_mySourceStateMethod;
 		QString m_targetStateName;
 
-		static shared_ptr<QState> _sTopState;
+		static shared_ptr<QFState> _sTopState;
 
-		static QState Top(shared_ptr<IQEvent> qEvent)
+		static QFState Top(shared_ptr<IQFEvent> qEvent)
 		{
-			QState empty("Top");
+			QFState empty("Top");
 			return empty;
 		}
 
-		QState GetSuperStateMethod(QState stateMethod);
+		QFState GetSuperStateMethod(QFState stateMethod);
 
-		QState Trigger(QState stateMethod, shared_ptr<QSignal> qSignal);
-		QState Trigger(QState receiverStateMethod, shared_ptr<QSignal> qSignal, shared_ptr<TransitionChainRecorder>  recorder);
+		QFState Trigger(QFState stateMethod, shared_ptr<QSignal> qSignal);
+		QFState Trigger(QFState receiverStateMethod, shared_ptr<QSignal> qSignal, shared_ptr<TransitionChainRecorder>  recorder);
 
 		void ExitUpToSourceState();
-		void TransitionFromSourceToTarget(QState targetStateMethod, shared_ptr<TransitionChainRecorder>  recorder);
+		void TransitionFromSourceToTarget(QFState targetStateMethod, shared_ptr<TransitionChainRecorder>  recorder);
 
-		int ExitUpToLca(QState targetStateMethod, QList<QState>& statesTargetToLca, shared_ptr<TransitionChainRecorder>  recorder);
-		void TransitionDownToTargetState(QState targetStateMethod, QList<QState>& statesTargetToLca, int indexFirstStateToEnter, shared_ptr<TransitionChainRecorder>  recorder);
-		void EnsureLastTransistionStepIsEntryIntoTargetState(QState targetStateMethod, shared_ptr<TransitionChainRecorder>  recorder);
-		void TransitionToSynchronized(QState targetState, shared_ptr<TransitionChain> transitionChain);
+		int ExitUpToLca(QFState targetStateMethod, QList<QFState>& statesTargetToLca, shared_ptr<TransitionChainRecorder>  recorder);
+		void TransitionDownToTargetState(QFState targetStateMethod, QList<QFState>& statesTargetToLca, int indexFirstStateToEnter, shared_ptr<TransitionChainRecorder>  recorder);
+		void EnsureLastTransistionStepIsEntryIntoTargetState(QFState targetStateMethod, shared_ptr<TransitionChainRecorder>  recorder);
+		void TransitionToSynchronized(QFState targetState, shared_ptr<TransitionChain> transitionChain);
 		void ExecuteTransitionChain(shared_ptr<TransitionChain>  transitionChain);
 
 	protected:
 
-		void InitializeState(QState state);
+		void InitializeState(QFState state);
 
-		bool IsInState(QState inquiredState);
+		bool IsInState(QFState inquiredState);
 
 
-		void DispatchSynchronized(shared_ptr<IQEvent> qEvent);
+		void DispatchSynchronized(shared_ptr<IQFEvent> qEvent);
 
-		QState TopState;
-		void TransitionTo(QState targetState);
+		QFState TopState;
+		void TransitionTo(QFState targetState);
 
-		void StateTrace(QState state, shared_ptr<QSignal> signal);
-		void TransitionTo(QState targetState, shared_ptr<TransitionChain> transitionChain);
+		void StateTrace(QFState state, shared_ptr<QSignal> signal);
+		void TransitionTo(QFState targetState, shared_ptr<TransitionChain> transitionChain);
 
 
 	};

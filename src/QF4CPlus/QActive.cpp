@@ -9,6 +9,9 @@ QActive::QActive()
 }
 QActive::~QActive()
 {
+	m_isRunning = false;
+	m_EventQueue->EnqueueLIFO(make_shared<QFEvent>(QSignals::Terminate));
+	wait();
 }
 int QActive::GetPriority()
 {
@@ -24,16 +27,17 @@ void QActive::start(int index)
 	if (index < 0)
 	{
 		throw new exception("The priority of an Active Object cannot be negative,priority");
-	}
+	}	
+	//setStackSize(102400000);
 	m_index = index;
 	QThread::start();
 }
-void QActive::PostFIFO(shared_ptr<IQEvent> qEvent)
+void QActive::PostFIFO(shared_ptr<IQFEvent> qEvent)
 {
 	m_EventQueue->EnqueueFIFO(qEvent);
 
 }
-void QActive::PostLIFO(shared_ptr<IQEvent> qEvent)
+void QActive::PostLIFO(shared_ptr<IQFEvent> qEvent)
 {
 	m_EventQueue->EnqueueLIFO(qEvent);
 }
@@ -43,7 +47,7 @@ void QActive::PostLIFO(shared_ptr<IQEvent> qEvent)
 //	return m_ExecutionThread;
 //}
 
-//shared_ptr<IQEvent> QActive::DeQueue()
+//shared_ptr<IQFEvent> QActive::DeQueue()
 //{
 //	return m_EventQueue->DeQueue();
 //}
@@ -51,12 +55,11 @@ void QActive::run()
 {
 	this->m_isRunning = true;
 	Init();
-
 	// event-loop
-	while (true)
+	while (m_isRunning)
 	{
 		// for-ever
-		shared_ptr<IQEvent> iQEvent = m_EventQueue->DeQueue();
+		shared_ptr<IQFEvent> iQEvent = m_EventQueue->DeQueue();
 		if (iQEvent->signal() != QSignals::Terminate)
 		{
 			qDebug() << "CurrentStateName" << getCurrentStateName() << "---" << iQEvent->ToString();

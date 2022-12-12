@@ -3,7 +3,7 @@
 #include "qf4cplus_global.h"
 #include <QObject>
 #include "Signal.h"
-#include "IQEvent.h"
+#include "IQFEvent.h"
 #include "QState.h"
 //#include "IRegularThread.h"
 #include "QHsm.h"
@@ -16,12 +16,12 @@ namespace QtQf4CPlus
 
 		virtual	void start(int priority) = 0;
 
-		virtual void PostFIFO(shared_ptr<IQEvent> qEvent) = 0;
+		virtual void PostFIFO(shared_ptr<IQFEvent> qEvent) = 0;
 
-		virtual	void PostLIFO(shared_ptr<IQEvent> qEvent) = 0;
+		virtual	void PostLIFO(shared_ptr<IQFEvent> qEvent) = 0;
 		 
 		//virtual shared_ptr<IRegularThread> getQThread()=0;
 
-		//virtual shared_ptr<IQEvent> DeQueue()=0;
+		//virtual shared_ptr<IQFEvent> DeQueue()=0;
 	};
 }

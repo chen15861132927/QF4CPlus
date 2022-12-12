@@ -8,7 +8,7 @@ namespace QtQf4CPlus
 	class QF4CPLUS_EXPORT QEventQueue : public IQEventQueue
 	{
 	private:
-		QList<shared_ptr<IQEvent>> _mEventList;
+		QList<shared_ptr<IQFEvent>> _mEventList;
 		QMutex mutex;
 		QWaitCondition eventIsEmpty;
 
@@ -19,12 +19,12 @@ namespace QtQf4CPlus
 
 		int Count();
 
-		void EnqueueFIFO(shared_ptr<IQEvent> qEvent);
+		void EnqueueFIFO(shared_ptr<IQFEvent> qEvent);
 
-		void EnqueueLIFO(shared_ptr<IQEvent> qEvent);
+		void EnqueueLIFO(shared_ptr<IQFEvent> qEvent);
 
-		shared_ptr<IQEvent> DeQueue();
-		shared_ptr<IQEvent> Peek();
+		shared_ptr<IQFEvent> DeQueue();
+		shared_ptr<IQFEvent> Peek();
 	};
 
 }

@@ -14,8 +14,6 @@ public:
 	static shared_ptr<QSignal>  H_Sig;
 };
 
-
-
 class QHsmTest :	public QActive
 {
 public:
@@ -24,12 +22,12 @@ public:
 
 private:
 
-	QState m_sA;
-	QState m_sAA;
-	QState m_sAB;
-	QState m_sB;
-	QState m_sBA;
-	QState m_sBB;
+	QFState m_sA;
+	QFState m_sAA;
+	QFState m_sAB;
+	QFState m_sB;
+	QFState m_sBA;
+	QFState m_sBB;
 protected:
 	void InitializeStateMachine() override;
 
@@ -37,7 +35,7 @@ protected:
 	Q_STATE_DECL(QHsmTest, sA);
 	Q_STATE_DECL(QHsmTest, sAA);
 	
-	QState sAA_call(shared_ptr<IQEvent> qEvent);
+	QFState sAA_call(shared_ptr<IQFEvent> qEvent);
 	Q_STATE_DECL(QHsmTest, sAB);
 	Q_STATE_DECL(QHsmTest, sB);
 	Q_STATE_DECL(QHsmTest, sBA);

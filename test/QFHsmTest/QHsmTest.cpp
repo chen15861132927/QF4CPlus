@@ -52,7 +52,7 @@ Q_STATE_DEF(QHsmTest, sA)
 	else if (qEvent->signal() == QSignals::Exit)
 	{
 		cout << "currentThreadId:" << QThread::currentThreadId() << "sA-EXIT;" << endl;
-		return nullptr;;
+		//return nullptr;
 	}
 	else if (qEvent->signal() == MyQSignals::E4_Sig)
 	{
@@ -115,7 +115,7 @@ Q_STATE_DEF(QHsmTest, sAB)
 	else if (qEvent->signal() == MyQSignals::E3_Sig)
 	{
 		cout << "currentThreadId:" << QThread::currentThreadId() << "sAB-E3_Sig;" << endl;
-		TransitionTo(m_sBB, s_Tran_sAB_sBB);
+		TransitionTo(m_sBB/*, s_Tran_sAB_sBB*/);
 		return nullptr;
 	}
 	return m_sA;
@@ -167,7 +167,7 @@ Q_STATE_DEF(QHsmTest, sBA)
 	else if (qEvent->signal() == MyQSignals::E2_Sig)
 	{
 		cout << "currentThreadId:" << QThread::currentThreadId() << "sBA-E2_Sig;" << endl;
-		TransitionTo(m_sA, s_Tran_sBA_sA);
+		TransitionTo(m_sA/*, s_Tran_sBA_sA*/);
 		return nullptr;
 	}
 	return m_sB;
@@ -189,7 +189,7 @@ Q_STATE_DEF(QHsmTest, sBB)
 	else if (qEvent->signal() == MyQSignals::E2_Sig)
 	{
 		cout << "currentThreadId:" << QThread::currentThreadId() << "sBB-E2_Sig;" << endl;
-		TransitionTo(m_sBA, s_Tran_sBB_sBA);
+		TransitionTo(m_sBA/*, s_Tran_sBB_sBA*/);
 		return nullptr;
 	}
 

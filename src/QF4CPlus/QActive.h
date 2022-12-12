@@ -1,8 +1,8 @@
 #pragma once
 #include "Interfaces/IQActive.h"
-#include "Interfaces/IQEvent.h"
+#include "Interfaces/IQFEvent.h"
 #include "Interfaces/IQHsm.h"
-#include "QEvent.h"
+#include "QFEvent.h"
 #include "QHsm.h"
 #include "Interfaces/IQEventQueue.h"
 #include <QThread>
@@ -25,12 +25,12 @@ namespace QtQf4CPlus
 
 		void start(int index);
 
-		void PostFIFO(shared_ptr<IQEvent> qEvent);
+		void PostFIFO(shared_ptr<IQFEvent> qEvent);
 
-		void PostLIFO(shared_ptr<IQEvent> qEvent);
+		void PostLIFO(shared_ptr<IQFEvent> qEvent);
  
 		//shared_ptr<IRegularThread> getQThread();
-		//shared_ptr<IQEvent> DeQueue();
+		//shared_ptr<IQFEvent> DeQueue();
 	protected:
  		void run() override;
 	};

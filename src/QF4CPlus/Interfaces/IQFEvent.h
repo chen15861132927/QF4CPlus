@@ -8,7 +8,7 @@
 using namespace std;
 namespace QtQf4CPlus
 {
-	class QF4CPLUS_EXPORT IQEvent:public QObject
+	class QF4CPLUS_EXPORT IQFEvent:public QObject
 	{
 		Q_OBJECT
 	public:

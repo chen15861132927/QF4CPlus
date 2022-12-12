@@ -3,14 +3,14 @@
 #include "qf4cplus_global.h"
 #include <QObject>
 #include "QSignal.h"
-#include "Interfaces/IQEvent.h"
+#include "Interfaces/IQFEvent.h"
 #include "QState.h"
 #include <QPointer>
 #include <QVariant>
 
 namespace QtQf4CPlus
 {
-	class QF4CPLUS_EXPORT QEvent :public IQEvent
+	class QF4CPLUS_EXPORT QFEvent :public IQFEvent
 	{
 		Q_OBJECT
 	private:
@@ -29,12 +29,12 @@ namespace QtQf4CPlus
 			return _eventObject;
 		}
 
-		QEvent(shared_ptr<QSignal> signal)
+		QFEvent(shared_ptr<QSignal> signal)
 		{
 			_signal = signal;
 		}
 
-		QEvent(shared_ptr<QSignal> signal, shared_ptr<QObject> eventObject)
+		QFEvent(shared_ptr<QSignal> signal, shared_ptr<QObject> eventObject)
 		{
 			_signal = signal;
 			_eventObject = eventObject;

@@ -3,7 +3,7 @@
 #include "qf4cplus_global.h"
 #include <QObject>
 #include "Signal.h"
-#include "IQEvent.h"
+#include "IQFEvent.h"
 
 namespace QtQf4CPlus
 {
@@ -14,12 +14,12 @@ namespace QtQf4CPlus
 
 		virtual int Count()=0;
 
-		virtual	void EnqueueFIFO(shared_ptr<IQEvent> qEvent) = 0;
+		virtual	void EnqueueFIFO(shared_ptr<IQFEvent> qEvent) = 0;
 
-		virtual	void EnqueueLIFO(shared_ptr<IQEvent> qEvent) = 0;
+		virtual	void EnqueueLIFO(shared_ptr<IQFEvent> qEvent) = 0;
 
-		virtual	shared_ptr<IQEvent> DeQueue() = 0;
+		virtual	shared_ptr<IQFEvent> DeQueue() = 0;
 
-		virtual	shared_ptr<IQEvent> Peek() = 0;
+		virtual	shared_ptr<IQFEvent> Peek() = 0;
 	};
 };

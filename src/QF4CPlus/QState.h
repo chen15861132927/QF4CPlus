@@ -3,7 +3,7 @@
 #include "qf4cplus_global.h"
 #include <QObject>
 #include "Signal.h"
-#include "Interfaces/IQEvent.h"
+#include "Interfaces/IQFEvent.h"
 #include <functional>
 #include <memory>
 
@@ -11,35 +11,35 @@ using namespace std;
 
 namespace QtQf4CPlus
 {
-	typedef void* (*QStateBase)(void* const me, shared_ptr<IQEvent> qEvent);
+	typedef void* (*QStateBase)(void* const me, shared_ptr<IQFEvent> qEvent);
 
-	struct QState :QObject
+	struct QFState :QObject
 	{
 		QStateBase QStateFun;
 		QString Name;
-		QState(const QState& b)
+		QFState(const QFState& b)
 		{
 			QStateFun = b.QStateFun;
 			Name = b.Name;
 		}
-		QState()
+		QFState()
 		{
 			QStateFun = nullptr;
 			Name = nullptr;
 		}
-		QState(QString _name)
+		QFState(QString _name)
 		{
 			QStateFun = nullptr;
 			Name = _name;
 		}
 
-		QState(QStateBase _qb, QString _name)
+		QFState(QStateBase _qb, QString _name)
 		{
 			QStateFun = _qb;
 			Name = _name;
 		}
 
-		bool operator==(QState b)
+		bool operator==(QFState b)
 		{
 			return this->QStateFun == b.QStateFun;
 		}
@@ -51,7 +51,7 @@ namespace QtQf4CPlus
 		{
 			return this != nullptr && this->QStateFun != nullptr;
 		}
-		void operator=(const QState& b)
+		void operator=(const QFState& b)
 		{
 			this->QStateFun = b.QStateFun;
 			this->Name = b.Name;
@@ -61,34 +61,34 @@ namespace QtQf4CPlus
 			this->QStateFun = nullptr;
 			this->Name = nullptr;
 		}
-		bool operator!=(QState b)
+		bool operator!=(QFState b)
 		{
 			return this->QStateFun != b.QStateFun;
 		}
 
-		//bool static operator==(QState a,QState b)
+		//bool static operator==(QFState a,QFState b)
 		//{
 		//	return a.QStateFun == b.QStateFun;
 		//}
-		//bool static operator!=(QState a, QState b)
+		//bool static operator!=(QFState a, QFState b)
 		//{
 		//	return a.QStateFun != b.QStateFun;
 		//}
 	};
 
 
-	typedef QState(*QStateCall)(void* const me, shared_ptr<IQEvent> qEvent);
+	typedef QFState(*QStateCall)(void* const me, shared_ptr<IQFEvent> qEvent);
 
 #define Q_STATE_DECL(subclass_, state_) \
-    static QState state_(void* const me, shared_ptr<IQEvent> qEvent)\
+    static QFState state_(void* const me, shared_ptr<IQFEvent> qEvent)\
 	{ \
         return static_cast<subclass_ *>(me)->state_ ## _handle(qEvent);\
 	} \
-    QState state_ ## _handle(shared_ptr<IQEvent> qEvent)
+    QFState state_ ## _handle(shared_ptr<IQFEvent> qEvent)
 
 #define Q_STATE_DEF(subclass_, state_) \
-    QState subclass_::state_ ## _handle(shared_ptr<IQEvent> qEvent)
+    QFState subclass_::state_ ## _handle(shared_ptr<IQFEvent> qEvent)
 
 #define Q_SET(pro,method)\
-	pro=QState((QStateBase)method,#method);
+	pro=QFState((QStateBase)method,#method);
 }

@@ -2,7 +2,7 @@
 
 #include "QHsm.h"
 using namespace QtQf4CPlus;
-shared_ptr<QState> QHsm::_sTopState = make_shared<QState>((QStateBase)QHsm::Top, ("Top"));
+shared_ptr<QFState> QHsm::_sTopState = make_shared<QFState>((QStateBase)QHsm::Top, ("Top"));
 
 #pragma region  public method
 QHsm::QHsm()
@@ -18,7 +18,7 @@ void QHsm::Init()
 {
 	assert(m_myStateMethod.QStateFun == _sTopState->QStateFun);
 	// save m_StateHandler in a temporary
-	QState stateMethod = m_myStateMethod;
+	QFState stateMethod = m_myStateMethod;
 
 	InitializeStateMachine();
 	// initial transition must go *one* level deep
@@ -38,7 +38,7 @@ void QHsm::Init()
 	}
 }
 
-void QHsm::Dispatch(shared_ptr<IQEvent> qEvent)
+void QHsm::Dispatch(shared_ptr<IQFEvent> qEvent)
 {
 	// We let the event bubble up the chain until it is handled by a state handler
 	try
@@ -47,7 +47,7 @@ void QHsm::Dispatch(shared_ptr<IQEvent> qEvent)
 		while (m_mySourceStateMethod != nullptr)
 		{
 			StateTrace(m_mySourceStateMethod, qEvent->signal()); // ZTG-added
-			QState state = ((QStateCall)m_mySourceStateMethod.QStateFun)(this, qEvent);
+			QFState state = ((QStateCall)m_mySourceStateMethod.QStateFun)(this, qEvent);
 
 			if (state != nullptr)
 			{
@@ -65,7 +65,7 @@ void QHsm::Dispatch(shared_ptr<IQEvent> qEvent)
 	}
 }
 
-void QHsm::DispatchSynchronized(shared_ptr<IQEvent> qEvent)
+void QHsm::DispatchSynchronized(shared_ptr<IQFEvent> qEvent)
 {
 	Dispatch(qEvent);
 }
@@ -78,7 +78,7 @@ QString QHsm::getCurrentStateName()
 #pragma endregion 
 #pragma region protected method
 
-void QHsm::InitializeState(QState state)
+void QHsm::InitializeState(QFState state)
 {
 	m_myStateMethod = state;
 
@@ -86,9 +86,9 @@ void QHsm::InitializeState(QState state)
 	m_mySourceStateMethod = m_myStateMethod;
 }
 
-bool QHsm::IsInState(QState inquiredState)
+bool QHsm::IsInState(QFState inquiredState)
 {
-	QState stateMethod = nullptr;
+	QFState stateMethod = nullptr;
 	for (stateMethod = m_myStateMethod;
 		stateMethod.QStateFun != nullptr;
 		stateMethod = GetSuperStateMethod(stateMethod))
@@ -102,7 +102,7 @@ bool QHsm::IsInState(QState inquiredState)
 	return false; // no match found
 }
 
-void QHsm::TransitionTo(QState targetState)
+void QHsm::TransitionTo(QFState targetState)
 {
 	m_targetStateName = targetState.Name;
 
@@ -112,7 +112,7 @@ void QHsm::TransitionTo(QState targetState)
 	TransitionFromSourceToTarget(targetState, nullptr);
 }
 
-void QHsm::TransitionTo(QState targetState, shared_ptr<TransitionChain> transitionChain)
+void QHsm::TransitionTo(QFState targetState, shared_ptr<TransitionChain> transitionChain)
 {
 	assert(targetState != TopState); // can't target 'top' state			
 	ExitUpToSourceState();
@@ -128,7 +128,7 @@ void QHsm::TransitionTo(QState targetState, shared_ptr<TransitionChain> transiti
 		ExecuteTransitionChain(transitionChain);
 	}
 }
-void QHsm::TransitionToSynchronized(QState targetState, shared_ptr<TransitionChain> transitionChain)
+void QHsm::TransitionToSynchronized(QFState targetState, shared_ptr<TransitionChain> transitionChain)
 {
 	if (transitionChain != nullptr)
 	{
@@ -166,16 +166,16 @@ void QHsm::ExecuteTransitionChain(shared_ptr<TransitionChain>  transitionChain)
 	m_myStateMethod = transitionStep.m_stateMethod;
 }
 
-void QHsm::StateTrace(QState state, shared_ptr<QSignal> signal)
+void QHsm::StateTrace(QFState state, shared_ptr<QSignal> signal)
 {
 }
 #pragma endregion 
 
 #pragma region private method
 
-QState QHsm::GetSuperStateMethod(QState stateMethod)
+QFState QHsm::GetSuperStateMethod(QFState stateMethod)
 {
-	QState superState = ((QStateCall)stateMethod.QStateFun)(this, make_shared<QEvent>(QSignals::Empty));
+	QFState superState = ((QStateCall)stateMethod.QStateFun)(this, make_shared<QFEvent>(QSignals::Empty));
 
 	if (superState.QStateFun != nullptr)
 	{
@@ -187,10 +187,10 @@ QState QHsm::GetSuperStateMethod(QState stateMethod)
 	}
 }
 
-QState QHsm::Trigger(QState stateMethod, shared_ptr<QSignal> qSignal)
+QFState QHsm::Trigger(QFState stateMethod, shared_ptr<QSignal> qSignal)
 {
 	StateTrace(stateMethod, qSignal); // ZTG-added
-	QState state = ((QStateCall)stateMethod.QStateFun)(this, make_shared<QEvent>(qSignal));
+	QFState state = ((QStateCall)stateMethod.QStateFun)(this, make_shared<QFEvent>(qSignal));
 	if (state.QStateFun == nullptr)
 	{
 		return nullptr;
@@ -221,17 +221,17 @@ void QHsm::ExitUpToSourceState()
 	}
 }
 
-void QHsm::TransitionFromSourceToTarget(QState targetStateMethod, shared_ptr<TransitionChainRecorder>  recorder)
+void QHsm::TransitionFromSourceToTarget(QFState targetStateMethod, shared_ptr<TransitionChainRecorder>  recorder)
 {
-	QList<QState> statesTargetToLca;
+	QList<QFState> statesTargetToLca;
 	int indexFirstStateToEnter = ExitUpToLca(targetStateMethod, statesTargetToLca, recorder);
 	TransitionDownToTargetState(targetStateMethod, statesTargetToLca, indexFirstStateToEnter, recorder);
 }
 
 
-QState QHsm::Trigger(QState receiverStateMethod, shared_ptr<QSignal> qSignal, shared_ptr<TransitionChainRecorder>  recorder)
+QFState QHsm::Trigger(QFState receiverStateMethod, shared_ptr<QSignal> qSignal, shared_ptr<TransitionChainRecorder>  recorder)
 {
-	QState stateMethod = Trigger(receiverStateMethod, qSignal);
+	QFState stateMethod = Trigger(receiverStateMethod, qSignal);
 	if (stateMethod == nullptr && recorder != nullptr)
 	{
 		// The receiverState handled the event
@@ -241,7 +241,7 @@ QState QHsm::Trigger(QState receiverStateMethod, shared_ptr<QSignal> qSignal, sh
 }
 
 
-int QHsm::ExitUpToLca(QState targetStateMethod, QList<QState>& statesTargetToLca, shared_ptr<TransitionChainRecorder>  recorder)
+int QHsm::ExitUpToLca(QFState targetStateMethod, QList<QFState>& statesTargetToLca, shared_ptr<TransitionChainRecorder>  recorder)
 {
 	statesTargetToLca.append(targetStateMethod);
 	int indexFirstStateToEnter = 0;
@@ -254,7 +254,7 @@ int QHsm::ExitUpToLca(QState targetStateMethod, QList<QState>& statesTargetToLca
 	}
 
 	// (b) check my source state == super state of the target state
-	QState targetSuperStateMethod = GetSuperStateMethod(targetStateMethod);
+	QFState targetSuperStateMethod = GetSuperStateMethod(targetStateMethod);
 	//Debug.WriteLine(targetSuperStateMethod.Name);
 	if (m_mySourceStateMethod == targetSuperStateMethod)
 	{
@@ -263,7 +263,7 @@ int QHsm::ExitUpToLca(QState targetStateMethod, QList<QState>& statesTargetToLca
 
 	// (c) check super state of my source state == super state of target state
 	// (most common)
-	QState sourceSuperStateMethod = GetSuperStateMethod(m_mySourceStateMethod);
+	QFState sourceSuperStateMethod = GetSuperStateMethod(m_mySourceStateMethod);
 	if (sourceSuperStateMethod == targetSuperStateMethod)
 	{
 		Trigger(m_mySourceStateMethod, QSignals::Exit, recorder);
@@ -281,7 +281,7 @@ int QHsm::ExitUpToLca(QState targetStateMethod, QList<QState>& statesTargetToLca
 	// (e) check rest of my source = super state of super state ... of target state hierarchy
 	statesTargetToLca.append(targetSuperStateMethod);
 	indexFirstStateToEnter++;
-	for (QState stateMethod = GetSuperStateMethod(targetSuperStateMethod);
+	for (QFState stateMethod = GetSuperStateMethod(targetSuperStateMethod);
 		stateMethod != nullptr; stateMethod = GetSuperStateMethod(stateMethod))
 	{
 		if (m_mySourceStateMethod == stateMethod)
@@ -302,7 +302,7 @@ int QHsm::ExitUpToLca(QState targetStateMethod, QList<QState>& statesTargetToLca
 	// from the target state up to the top state
 	for (int stateIndex = indexFirstStateToEnter; stateIndex >= 0; stateIndex--)
 	{
-		if (sourceSuperStateMethod == (QState)statesTargetToLca[stateIndex])
+		if (sourceSuperStateMethod == (QFState)statesTargetToLca[stateIndex])
 		{
 			indexFirstStateToEnter = stateIndex - 1;
 			// Note that we do not include the LCA state itself;
@@ -313,12 +313,12 @@ int QHsm::ExitUpToLca(QState targetStateMethod, QList<QState>& statesTargetToLca
 
 	// (g) check each super state of super state ... of my source state ==
 	//     super state of super state of ... target state
-	for (QState stateMethod = sourceSuperStateMethod;
+	for (QFState stateMethod = sourceSuperStateMethod;
 		stateMethod != nullptr; stateMethod = GetSuperStateMethod(stateMethod))
 	{
 		for (int stateIndex = indexFirstStateToEnter; stateIndex >= 0; stateIndex--)
 		{
-			if (stateMethod == (QState)statesTargetToLca[stateIndex])
+			if (stateMethod == (QFState)statesTargetToLca[stateIndex])
 			{
 				indexFirstStateToEnter = stateIndex - 1;
 				// Note that we do not include the LCA state itself;
@@ -334,13 +334,13 @@ int QHsm::ExitUpToLca(QState targetStateMethod, QList<QState>& statesTargetToLca
 }
 
 
-void QHsm::TransitionDownToTargetState(QState targetStateMethod, QList<QState>& statesTargetToLca,
+void QHsm::TransitionDownToTargetState(QFState targetStateMethod, QList<QFState>& statesTargetToLca,
 	int indexFirstStateToEnter, shared_ptr<TransitionChainRecorder> recorder)
 {
 	// we enter the states in the passed in array in reverse order
 	for (int stateIndex = indexFirstStateToEnter; stateIndex >= 0; stateIndex--)
 	{
-		Trigger((QState)statesTargetToLca[stateIndex], QSignals::Entry, recorder);
+		Trigger((QFState)statesTargetToLca[stateIndex], QSignals::Entry, recorder);
 	}
 
 	m_myStateMethod = targetStateMethod;
@@ -365,7 +365,7 @@ void QHsm::TransitionDownToTargetState(QState targetStateMethod, QList<QState>& 
 	}
 }
 
-void QHsm::EnsureLastTransistionStepIsEntryIntoTargetState(QState targetStateMethod, shared_ptr<TransitionChainRecorder> recorder)
+void QHsm::EnsureLastTransistionStepIsEntryIntoTargetState(QFState targetStateMethod, shared_ptr<TransitionChainRecorder> recorder)
 {
 	if (recorder->length() == 0)
 	{
