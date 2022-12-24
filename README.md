@@ -2,12 +2,14 @@
 
 The source code in this directory is the C++ Qt port of Miro Samek's Quantum Framework including his excellent implementation of a hierarchical state machine. 
 
-and better than QP is OOP C++ show the construction and easy to understand.
+And better than QP is OOP C++ show the construction and easy to understand. and not lost performance.
 
-And I just do for Industrial automation computer program to easy to control hardware, make it esay to develop different machine sequence Action.
+I just do for Industrial automation computer program to easy to control hardware, make it esay to develop different machine sequence Action.
 
 development environment
+
 VS2019
+
 Qt5.12.12
 
 
