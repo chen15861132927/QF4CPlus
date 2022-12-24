@@ -12,7 +12,9 @@ VS2019
 
 Qt5.12.12
 
+there is a project to compare with QT and QF state machine time.
 
+https://github.com/chen15861132927/QF4CPlus/blob/main/test/QF4CPlus_VS_QtStateMachine/testDemoChart.JPG
 
 Reference Link
 
