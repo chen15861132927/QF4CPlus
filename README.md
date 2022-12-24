@@ -2,6 +2,8 @@
 
 The source code in this directory is the C++ Qt port of Miro Samek's Quantum Framework including his excellent implementation of a hierarchical state machine. 
 
+and better than QP is OOP C++ show the construction and easy to understand.
+
 And I just do for Industrial automation computer program to easy to control hardware, make it esay to develop different machine sequence Action.
 
 development environment
@@ -14,5 +16,5 @@ Reference Link
 
 https://github.com/zdomokos/qf4net
 
-
 https://github.com/QuantumLeaps/qpcpp/tree/master/examples
+
