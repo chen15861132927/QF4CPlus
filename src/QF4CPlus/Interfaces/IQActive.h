@@ -12,13 +12,13 @@ namespace QtQf4CPlus
 	class QF4CPLUS_EXPORT IQActive
 	{
 	public:
-		virtual int GetPriority() = 0;
+		virtual int getPriority() = 0;
 
 		virtual	void start(int priority) = 0;
 
-		virtual void PostFIFO(shared_ptr<IQFEvent> qEvent) = 0;
+		virtual void postFIFO(shared_ptr<IQFEvent> qEvent) = 0;
 
-		virtual	void PostLIFO(shared_ptr<IQFEvent> qEvent) = 0;
+		virtual	void postLIFO(shared_ptr<IQFEvent> qEvent) = 0;
 		 
 		//virtual shared_ptr<IRegularThread> getQThread()=0;
 

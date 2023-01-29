@@ -66,7 +66,7 @@ void QF::Publish(shared_ptr<QFEvent> qEvent)
 		// b) We don't have the restriction that only once instance of a given type (signal value) can be in use at any given time
 		for (auto iter = findsignals->begin(); iter != findsignals->end(); iter++)
 		{
-			iter.value()->PostFIFO(qEvent);
+			iter.value()->postFIFO(qEvent);
 		}
 	}
 

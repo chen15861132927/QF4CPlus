@@ -15,22 +15,19 @@ namespace QtQf4CPlus
 	private:
 		shared_ptr<IQEventQueue> m_EventQueue;
 		int m_index;
-		//shared_ptr<IRegularThread> m_ExecutionThread;
-		bool  m_isRunning;
+		bool m_isRunning;
 
 	public:
 		QActive();
 		~QActive();
-		int GetPriority();
+		int getPriority();
 
 		void start(int index);
 
-		void PostFIFO(shared_ptr<IQFEvent> qEvent);
+		void postFIFO(shared_ptr<IQFEvent> qEvent);
 
-		void PostLIFO(shared_ptr<IQFEvent> qEvent);
+		void postLIFO(shared_ptr<IQFEvent> qEvent);
  
-		//shared_ptr<IRegularThread> getQThread();
-		//shared_ptr<IQFEvent> DeQueue();
 	protected:
  		void run() override;
 	};

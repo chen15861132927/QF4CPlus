@@ -13,7 +13,7 @@ QActive::~QActive()
 	m_EventQueue->EnqueueLIFO(make_shared<QFEvent>(QSignals::Terminate));
 	wait();
 }
-int QActive::GetPriority()
+int QActive::getPriority()
 {
 	return m_index;
 }
@@ -32,12 +32,12 @@ void QActive::start(int index)
 	m_index = index;
 	QThread::start();
 }
-void QActive::PostFIFO(shared_ptr<IQFEvent> qEvent)
+void QActive::postFIFO(shared_ptr<IQFEvent> qEvent)
 {
 	m_EventQueue->EnqueueFIFO(qEvent);
 
 }
-void QActive::PostLIFO(shared_ptr<IQFEvent> qEvent)
+void QActive::postLIFO(shared_ptr<IQFEvent> qEvent)
 {
 	m_EventQueue->EnqueueLIFO(qEvent);
 }

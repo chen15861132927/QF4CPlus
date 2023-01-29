@@ -25,5 +25,5 @@ void QFTimer::stop()
 
 void QFTimer::onTimeOut()
 {
-	m_QActive->PostLIFO(m_QEvent);
+	m_QActive->postLIFO(m_QEvent);
 }
