@@ -91,4 +91,11 @@ namespace QtQf4CPlus
 
 #define Q_SET(pro,method)\
 	pro=QFState((QStateBase)method,#method);
+
+
+#define Q_Static_DECL(subclass_, state_,handle_) \
+    static QFState state_(void* const me, shared_ptr<IQFEvent> qEvent)\
+	{ \
+        return static_cast<subclass_ *>(me)->handle_(qEvent);\
+	} 
 }

@@ -31,15 +31,23 @@ private:
 protected:
 	void InitializeStateMachine() override;
 
-	//Q_STATE(QHsmTest, s0);
-	Q_STATE_DECL(QHsmTest, sA);
-	Q_STATE_DECL(QHsmTest, sAA);
-	
-	QFState sAA_call(shared_ptr<IQFEvent> qEvent);
-	Q_STATE_DECL(QHsmTest, sAB);
-	Q_STATE_DECL(QHsmTest, sB);
-	Q_STATE_DECL(QHsmTest, sBA);
-	Q_STATE_DECL(QHsmTest, sBB);
+	QFState sA_handle(shared_ptr<IQFEvent> qEvent);
+	Q_Static_DECL(QHsmTest, sA, sA_handle);
+
+	QFState sAA_handle(shared_ptr<IQFEvent> qEvent);
+	Q_Static_DECL(QHsmTest, sAA, sAA_handle);
+
+	QFState sAB_handle(shared_ptr<IQFEvent> qEvent);
+	Q_Static_DECL(QHsmTest, sAB, sAB_handle);
+
+	QFState sB_handle(shared_ptr<IQFEvent> qEvent);
+	Q_Static_DECL(QHsmTest, sB, sB_handle);
+
+	QFState sBA_handle(shared_ptr<IQFEvent> qEvent);
+	Q_Static_DECL(QHsmTest, sBA, sBA_handle);
+
+	QFState sBB_handle(shared_ptr<IQFEvent> qEvent);
+	Q_Static_DECL(QHsmTest, sBB, sBB_handle);
 
 
 	static shared_ptr<TransitionChain> s_Tran_sAB_sAA;

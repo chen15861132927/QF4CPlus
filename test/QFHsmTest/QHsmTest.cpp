@@ -15,7 +15,9 @@ shared_ptr<TransitionChain> QHsmTest::s_Tran_sBA_sA = nullptr;
 shared_ptr<TransitionChain> QHsmTest::s_Tran_sBB_sBA = nullptr;
 QHsmTest::QHsmTest()
 {
-	Q_SET(m_sA, sA);
+	m_sA = QFState((QStateBase)sA, "sA");
+
+	//Q_SET(m_sA, sA);
 	Q_SET(m_sAA, sAA);
 	Q_SET(m_sAB, sAB);
 	Q_SET(m_sB, sB);
@@ -42,7 +44,7 @@ void QHsmTest::InitializeStateMachine()
 	InitializeState(m_sA); // initial transition			
 }
 
-Q_STATE_DEF(QHsmTest, sA)
+QFState QHsmTest::sA_handle(shared_ptr<IQFEvent> qEvent)
 {
 	if (qEvent->signal() == QSignals::Entry)
 	{
@@ -69,8 +71,7 @@ Q_STATE_DEF(QHsmTest, sA)
 
 	return this->TopState;
 }
-
-Q_STATE_DEF(QHsmTest,sAA)
+QFState QHsmTest::sAA_handle(shared_ptr<IQFEvent> qEvent)
 {
 	if (qEvent->signal() == QSignals::Entry)
 	{
@@ -93,8 +94,7 @@ Q_STATE_DEF(QHsmTest,sAA)
 }
 
 
-
-Q_STATE_DEF(QHsmTest, sAB)
+QFState QHsmTest::sAB_handle(shared_ptr<IQFEvent> qEvent)
 {
 	if (qEvent->signal() == QSignals::Entry)
 	{
@@ -123,7 +123,7 @@ Q_STATE_DEF(QHsmTest, sAB)
 
 //private static TransitionChain s_Tran_s2_s1;
 //private static TransitionChain s_Tran_s2_s11;
-Q_STATE_DEF(QHsmTest, sB)
+QFState QHsmTest::sB_handle(shared_ptr<IQFEvent> qEvent)
 {
 	if (qEvent->signal() == QSignals::Entry)
 	{
@@ -144,9 +144,7 @@ Q_STATE_DEF(QHsmTest, sB)
 
 	return this->TopState;
 }
-
-Q_STATE_DEF(QHsmTest, sBA)
-
+QFState QHsmTest::sBA_handle(shared_ptr<IQFEvent> qEvent)
 {
 	if (qEvent->signal() == QSignals::Entry)
 	{
@@ -172,9 +170,7 @@ Q_STATE_DEF(QHsmTest, sBA)
 	}
 	return m_sB;
 }
-
-Q_STATE_DEF(QHsmTest, sBB)
-
+QFState QHsmTest::sBB_handle(shared_ptr<IQFEvent> qEvent)
 {
 	if (qEvent->signal() == QSignals::Entry)
 	{
