@@ -1,17 +1,19 @@
+#include "QActiveThread.h"
 #include "QActive.h"
 #include "QEventQueue.h"
+
 using namespace QtQf4CPlus;
 
 QActive::QActive()
 {
 	m_EventQueue = make_shared<QEventQueue>();
-	//m_ExecutionThread = make_shared<IRegularThread>(this);
+	m_ExecutionThread = make_shared<QActiveThread>(this);
 }
 QActive::~QActive()
 {
-	m_isRunning = false;
+	m_ExecutionThread->closeRun();
 	m_EventQueue->EnqueueLIFO(make_shared<QFEvent>(QSignals::Terminate));
-	wait();
+	m_ExecutionThread->wait();
 }
 int QActive::getPriority()
 {
@@ -30,7 +32,7 @@ void QActive::start(int index)
 	}	
 	//setStackSize(102400000);
 	m_index = index;
-	QThread::start();
+	m_ExecutionThread->start();
 }
 void QActive::postFIFO(shared_ptr<IQFEvent> qEvent)
 {
@@ -42,31 +44,3 @@ void QActive::postLIFO(shared_ptr<IQFEvent> qEvent)
 	m_EventQueue->EnqueueLIFO(qEvent);
 }
 
-//shared_ptr<IRegularThread> QFActive::getQThread()
-//{
-//	return m_ExecutionThread;
-//}
-
-//shared_ptr<IQFEvent> QActive::DeQueue()
-//{
-//	return m_EventQueue->DeQueue();
-//}
-void QActive::run()
-{
-	this->m_isRunning = true;
-	Init();
-	// event-loop
-	while (m_isRunning)
-	{
-		// for-ever
-		shared_ptr<IQFEvent> iQEvent = m_EventQueue->DeQueue();
-		if (iQEvent->signal() != QSignals::Terminate)
-		{
-			qDebug() << "CurrentStateName" << getCurrentStateName() << "---" << iQEvent->ToString();
-			Dispatch(iQEvent);
-			continue;
-		}
-		break;
-		m_isRunning = false;
-	}
-}

@@ -1,10 +1,13 @@
 #pragma once
 #include "../../src/QF4CPlus/QActive.h"
 using namespace QtQf4CPlus;
- class QFActive:public QActive
+class QFActive:public QActive
 {
+	 Q_OBJECT
 	 static shared_ptr<QSignal>  E1_Sig;
+	 static shared_ptr<QSignal>  SigStateJob;
 
+	 
 public:
 	QFActive();
 	~QFActive();
@@ -42,14 +45,14 @@ protected:
 	Q_STATE_DECL(QFActive, sfinal);
 
 
-shared_ptr<TransitionChain> s_Tran_sTestState_sA=nullptr;
-shared_ptr<TransitionChain> s_Tran_sA_sB=nullptr;
-shared_ptr<TransitionChain> s_Tran_sB_sC=nullptr;
-shared_ptr<TransitionChain> s_Tran_sC_sD=nullptr;
-shared_ptr<TransitionChain> s_Tran_sD_sE=nullptr;
-shared_ptr<TransitionChain> s_Tran_sE_sF=nullptr;
-shared_ptr<TransitionChain> s_Tran_sF_sA=nullptr;
-shared_ptr<TransitionChain> s_Tran_sF_sFinal = nullptr;
+//shared_ptr<TransitionChain> s_Tran_sTestState_sA=nullptr;
+//shared_ptr<TransitionChain> s_Tran_sA_sB=nullptr;
+//shared_ptr<TransitionChain> s_Tran_sB_sC=nullptr;
+//shared_ptr<TransitionChain> s_Tran_sC_sD=nullptr;
+//shared_ptr<TransitionChain> s_Tran_sD_sE=nullptr;
+//shared_ptr<TransitionChain> s_Tran_sE_sF=nullptr;
+//shared_ptr<TransitionChain> s_Tran_sF_sA=nullptr;
+//shared_ptr<TransitionChain> s_Tran_sF_sFinal = nullptr;
 
 
 };

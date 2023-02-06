@@ -10,12 +10,15 @@
 
 namespace QtQf4CPlus
 {
-	class QF4CPLUS_EXPORT QActive :public QHsm,public QThread ,public IQActive
+	class QActiveThread;
+	class QF4CPLUS_EXPORT QActive :  public QHsm, public IQActive
 	{
+		Q_OBJECT
 	private:
 		shared_ptr<IQEventQueue> m_EventQueue;
+		shared_ptr<QActiveThread> m_ExecutionThread;
 		int m_index;
-		bool m_isRunning;
+		friend class QActiveThread;  //声明 CDriver 为友元类
 
 	public:
 		QActive();
@@ -27,8 +30,9 @@ namespace QtQf4CPlus
 		void postFIFO(shared_ptr<IQFEvent> qEvent);
 
 		void postLIFO(shared_ptr<IQFEvent> qEvent);
- 
-	protected:
- 		void run() override;
+
 	};
+	
+
+	
 }

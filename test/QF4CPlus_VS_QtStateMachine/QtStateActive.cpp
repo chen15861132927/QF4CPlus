@@ -31,7 +31,7 @@ void QtStateActive::onAExit()
 {
 	isWaitSignal = false;
 	startTime = std::chrono::high_resolution_clock::now();
-
+	
 }
 void QtStateActive::onAEntry()
 {

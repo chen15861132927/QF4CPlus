@@ -1,6 +1,8 @@
 #pragma once
 
 #include "QHsm.h"
+#include <QMetaMethod>
+#include <qDebug>
 using namespace QtQf4CPlus;
 shared_ptr<QFState> QHsm::_sTopState = make_shared<QFState>((QStateBase)QHsm::Top, ("Top"));
 
@@ -9,6 +11,8 @@ QHsm::QHsm()
 {
 	m_myStateMethod = *_sTopState;
 	TopState = *_sTopState;
+	m_targetStateName = m_myStateMethod.Name;
+
 }
 QHsm::~QHsm()
 {
@@ -23,6 +27,8 @@ void QHsm::Init()
 	InitializeStateMachine();
 	// initial transition must go *one* level deep
 	auto tempstate = GetSuperStateMethod(m_myStateMethod);
+	m_targetStateName = m_myStateMethod.Name;
+
 	assert(tempstate == stateMethod);
 	// Note: We only use the temporary
 	stateMethod = m_myStateMethod;
@@ -72,7 +78,7 @@ void QHsm::DispatchSynchronized(shared_ptr<IQFEvent> qEvent)
 
 QString QHsm::getCurrentStateName()
 {
-	return m_myStateMethod.Name;
+	return m_targetStateName;
 }
 
 #pragma endregion 
@@ -84,6 +90,8 @@ void QHsm::InitializeState(QFState state)
 
 	// try setting this in cases of transitionTo before any Dispatches
 	m_mySourceStateMethod = m_myStateMethod;
+	m_targetStateName = m_myStateMethod.Name;
+
 }
 
 bool QHsm::IsInState(QFState inquiredState)
@@ -190,6 +198,20 @@ QFState QHsm::GetSuperStateMethod(QFState stateMethod)
 QFState QHsm::Trigger(QFState stateMethod, shared_ptr<QSignal> qSignal)
 {
 	StateTrace(stateMethod, qSignal); // ZTG-added
+	//const QMetaObject* metaobj_1 = this->metaObject();
+	//QString cname_1 = metaobj_1->className();
+	//for (int idx = metaobj_1->methodOffset(); idx < metaobj_1->methodCount(); ++idx)
+	//{
+	//	QMetaMethod oneMethod = metaobj_1->method(idx);
+	//	qDebug() << "--------begin-------" << "\n";
+	//	qDebug() << " typeName: " << oneMethod.typeName() << "\n";
+	//	qDebug() << " typeName: " << oneMethod.name() << "\n";
+
+	//	qDebug() << " methodType: " << oneMethod.methodType() << "\n";
+	//	oneMethod.invoke(this);
+
+	//	qDebug() << "--------end---------" << "\n";
+	//}
 	QFState state = ((QStateCall)stateMethod.QStateFun)(this, make_shared<QFEvent>(qSignal));
 	if (state.QStateFun == nullptr)
 	{

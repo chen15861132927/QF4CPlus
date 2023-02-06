@@ -1,7 +1,7 @@
 #include "QF4CPlus_VS_QtStateMachine.h"
 #include <QTimer>
 #include "../../src/QF4CPlus/QF.h"
-
+#include <QThread>
 int QF4CPlus_VS_QtStateMachine::TestCount = 10000;
 QF4CPlus_VS_QtStateMachine::QF4CPlus_VS_QtStateMachine(QWidget* parent)
 	: QMainWindow(parent)
@@ -17,7 +17,12 @@ QF4CPlus_VS_QtStateMachine::QF4CPlus_VS_QtStateMachine(QWidget* parent)
 
 	connect(QTStateTimerReader, &QTimer::timeout, this, &QF4CPlus_VS_QtStateMachine::onQTTimeoutShow); //定义计时器，并连接槽函数
 	connect(ui.push_QTStart, &QPushButton::clicked, this, &QF4CPlus_VS_QtStateMachine::onQT4Clicked);
-
+	connect(ui.oneclickbtn, &QPushButton::clicked, this, [=]() {
+		QTimer::singleShot(0, this, [=]()
+			{
+				QF::getInstance()->Publish(make_shared<QFEvent>(qFActive.Start_Sig));
+			});
+		});
 }
 void QF4CPlus_VS_QtStateMachine::onQF4Clicked()
 {
@@ -36,10 +41,13 @@ void QF4CPlus_VS_QtStateMachine::onQFTimeoutShow()
 	}
 	if (qFActive.getCurrentStateName() == "sA")
 	{
+		//qDebug() << "call qFActive onQFTimeoutShow" << endl;
+
 		QTimer::singleShot(0, this, [=]()
 			{
 				QF::getInstance()->Publish(make_shared<QFEvent>(qFActive.Start_Sig));
 			});
+		//QThread::sleep(1);
 	}
 }
 

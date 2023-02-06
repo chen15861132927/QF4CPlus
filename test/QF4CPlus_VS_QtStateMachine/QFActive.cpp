@@ -4,6 +4,7 @@
 #include "../../src/QF4CPlus/QF.h"
 #include "QF4CPlus_VS_QtStateMachine.h"
 shared_ptr<QSignal> QFActive::E1_Sig = std::make_shared<QSignal>("E1_Sig");
+shared_ptr<QSignal> QFActive::SigStateJob = std::make_shared<QSignal>("SigStateJob");
 
 QFActive::QFActive()
 {
@@ -32,17 +33,50 @@ Q_STATE_DEF(QFActive, sTestState)
 	if (qEvent->signal() == QSignals::Init)
 	{
 		cout << "currentThreadId:" << QThread::currentThreadId() << "sA-INIT;" << endl;
-		InitializeState(m_sA);
+		TransitionTo(m_sA);
 		return nullptr;
 	}
 
 	return this->TopState;
 }
-
+//Q_STATE_DEF(QFActive, sA)
+//{
+//	//qDebug() << "sA-;" << getCurrentStateName() << qEvent->signal()->ToString() << endl;
+//
+//	if (qEvent->signal() == QSignals::Init)
+//	{
+//		//qDebug() << "sA-Entry;" << getCurrentStateName() << endl;
+//
+//		if (count != 0)
+//		{
+//			finalTime = finalTime + std::chrono::high_resolution_clock::now() - startTime;
+//		}
+//		count++;
+//	}
+//	if (qEvent->signal() == QSignals::Exit)
+//	{
+//		startTime = std::chrono::high_resolution_clock::now();
+//	}
+//	if (qEvent->signal() == Start_Sig)
+//	{
+//		//startTime = std::chrono::high_resolution_clock::now();
+//
+//		//qDebug() << "currentThreadId:" << QThread::currentThreadId() << "sA-E4_Sig;" << getCurrentStateName() << endl;
+//		TransitionTo(m_sB);
+//		postFIFO(std::make_shared<QFEvent>(SigStateJob));
+//		return nullptr;
+//	}
+//
+//	return this->m_sTestState;
+//}
 Q_STATE_DEF(QFActive, sA)
 {
-	if (qEvent->signal() == QSignals::Entry)
+	//qDebug() << "sA-;" << getCurrentStateName() << qEvent->signal()->ToString() << endl;
+
+	if (qEvent->signal() == SigStateJob)
 	{
+		//qDebug() << "sA-Entry;" << getCurrentStateName() << endl;
+
 		if (count != 0)
 		{
 			finalTime = finalTime + std::chrono::high_resolution_clock::now() - startTime;
@@ -54,8 +88,9 @@ Q_STATE_DEF(QFActive, sA)
 	{
 		startTime = std::chrono::high_resolution_clock::now();
 
-		cout << "currentThreadId:" << QThread::currentThreadId() << "sA-E4_Sig;" << endl;
-		TransitionTo(m_sA);
+		//qDebug() << "currentThreadId:" << QThread::currentThreadId() << "sA-E4_Sig;" << getCurrentStateName() << endl;
+		TransitionTo(m_sB);
+		postFIFO(std::make_shared<QFEvent>(SigStateJob));
 		return nullptr;
 	}
 
@@ -64,9 +99,15 @@ Q_STATE_DEF(QFActive, sA)
 
 Q_STATE_DEF(QFActive, sB)
 {
-	if (qEvent->signal() == QSignals::Entry)
+	//qDebug() << "sB-;" << getCurrentStateName() << qEvent->signal()->ToString() << endl;
+
+	if (qEvent->signal() == SigStateJob)
 	{
-		TransitionTo(m_sC, s_Tran_sB_sC);
+		//qDebug() <<"sB-Entry;" << getCurrentStateName() << endl;
+
+		TransitionTo(m_sC);
+		postFIFO(std::make_shared<QFEvent>(SigStateJob));
+
 		return nullptr;
 	}
 
@@ -75,9 +116,15 @@ Q_STATE_DEF(QFActive, sB)
 
 Q_STATE_DEF(QFActive, sC)
 {
-	if (qEvent->signal() == QSignals::Entry)
+	//qDebug() << "sC-;" << getCurrentStateName() << qEvent->signal()->ToString() << endl;
+
+	if (qEvent->signal() == SigStateJob)
 	{
-		TransitionTo(m_sD, s_Tran_sC_sD);
+		//qDebug() << "sC-Entry;" << getCurrentStateName() << endl;
+
+		TransitionTo(m_sD);
+		postFIFO(std::make_shared<QFEvent>(SigStateJob));
+
 		return nullptr;
 	}
 
@@ -85,9 +132,15 @@ Q_STATE_DEF(QFActive, sC)
 }
 Q_STATE_DEF(QFActive, sD)
 {
-	if (qEvent->signal() == QSignals::Entry)
+	//qDebug() << "sD-;" << getCurrentStateName() << qEvent->signal()->ToString() << endl;
+
+	if (qEvent->signal() == SigStateJob)
 	{
-		TransitionTo(m_sE, s_Tran_sD_sE);
+		//qDebug() << "sD-Entry;" << getCurrentStateName() << endl;
+
+		TransitionTo(m_sE);
+		postFIFO(std::make_shared<QFEvent>(SigStateJob));
+
 		return nullptr;
 	}
 
@@ -95,9 +148,15 @@ Q_STATE_DEF(QFActive, sD)
 }
 Q_STATE_DEF(QFActive, sE)
 {
-	if (qEvent->signal() == QSignals::Entry)
+	//qDebug() << "sE-;" << getCurrentStateName() << qEvent->signal()->ToString() << endl;
+
+	if (qEvent->signal() == SigStateJob)
 	{
-		TransitionTo(m_sF, s_Tran_sE_sF);
+		//qDebug() << "sE-Entry;" << getCurrentStateName() << endl;
+
+		TransitionTo(m_sF);
+		postFIFO(std::make_shared<QFEvent>(SigStateJob));
+
 		return nullptr;
 	}
 
@@ -105,17 +164,26 @@ Q_STATE_DEF(QFActive, sE)
 }
 Q_STATE_DEF(QFActive, sF)
 {
-	if (qEvent->signal() == QSignals::Entry)
+	//qDebug() << "sF-;" << getCurrentStateName() << qEvent->signal()->ToString() << endl;
+
+	if (qEvent->signal() == SigStateJob)
 	{
-		TransitionTo(m_sA, s_Tran_sF_sA);
+		//qDebug() << "sF-Entry;" << getCurrentStateName() << endl;
+
+		TransitionTo(m_sA);
+		postFIFO(std::make_shared<QFEvent>(SigStateJob));
+
 		return nullptr;
 	}
 
 	return this->m_sTestState;
-}Q_STATE_DEF(QFActive, sfinal)
+}
+Q_STATE_DEF(QFActive, sfinal)
 {
 	if (qEvent->signal() == E1_Sig)
 	{
+		//qDebug() << "sfinal-Entry;" << getCurrentStateName() << endl;
+
 		TransitionTo(m_sA);
 		return nullptr;
 	}

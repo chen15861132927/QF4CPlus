@@ -100,7 +100,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="QFActive.h" />
+    <QtMoc Include="QFActive.h" />
     <QtMoc Include="QtStateActive.h" />
   </ItemGroup>
   <ItemGroup>

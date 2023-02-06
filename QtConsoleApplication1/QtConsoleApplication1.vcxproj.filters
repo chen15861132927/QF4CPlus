@@ -3,7 +3,7 @@
   <ItemGroup>
     <Filter Include="Source Files">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+      <Extensions>qml;cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="Header Files">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
@@ -23,35 +23,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <QtRcc Include="QF4CPlus_VS_QtStateMachine.qrc">
-      <Filter>Resource Files</Filter>
-    </QtRcc>
-    <QtUic Include="QF4CPlus_VS_QtStateMachine.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
-    <QtMoc Include="QF4CPlus_VS_QtStateMachine.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <ClCompile Include="QF4CPlus_VS_QtStateMachine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="QFActive.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="QtStateActive.cpp">
+    <ClCompile Include="DerivedClass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="QtStateActive.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="QFActive.h">
+    <QtMoc Include="DerivedClass.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

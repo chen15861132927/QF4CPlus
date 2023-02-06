@@ -39,7 +39,7 @@ void QF::Subscribe(QActive* qActive, shared_ptr<QSignal> qSignal)
 		findsignals = _mSignalSubscribers.find(qSignal->GetHashCode());
 	}
 
-	findsignals->insert(qActive->priority(), qActive);
+	findsignals->insert(qActive->getPriority(), qActive);
 	mutex.unlock();
 }
 void QF::Unsubscribe(QActive* qActive, shared_ptr<QSignal> qSignal)
@@ -48,7 +48,7 @@ void QF::Unsubscribe(QActive* qActive, shared_ptr<QSignal> qSignal)
 	auto findsignals = _mSignalSubscribers.find(qSignal->GetHashCode());
 	if (findsignals != _mSignalSubscribers.end())
 	{
-		findsignals->remove(qActive->priority());
+		findsignals->remove(qActive->getPriority());
 	}
 
 	mutex.unlock();

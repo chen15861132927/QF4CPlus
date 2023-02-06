@@ -11,8 +11,9 @@
 #include "TransitionChain.h"
 namespace QtQf4CPlus
 {
-	class QF4CPLUS_EXPORT QHsm :public IQHsm
+	class QF4CPLUS_EXPORT QHsm :public QObject,public IQHsm
 	{
+		Q_OBJECT
 #pragma region private class
 	private:
 		class TransitionChainRecorder

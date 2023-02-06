@@ -84,7 +84,7 @@ namespace QtQf4CPlus
 	{ \
         return static_cast<subclass_ *>(me)->state_ ## _handle(qEvent);\
 	} \
-    QFState state_ ## _handle(shared_ptr<IQFEvent> qEvent)
+    Q_INVOKABLE QFState state_ ## _handle(shared_ptr<IQFEvent> qEvent)
 
 #define Q_STATE_DEF(subclass_, state_) \
     QFState subclass_::state_ ## _handle(shared_ptr<IQFEvent> qEvent)
@@ -93,7 +93,7 @@ namespace QtQf4CPlus
 	pro=QFState((QStateBase)method,#method);
 
 
-#define Q_Static_DECL(subclass_, state_,handle_) \
+#define Q_STATE_S_DECL(subclass_, state_,handle_) \
     static QFState state_(void* const me, shared_ptr<IQFEvent> qEvent)\
 	{ \
         return static_cast<subclass_ *>(me)->handle_(qEvent);\
