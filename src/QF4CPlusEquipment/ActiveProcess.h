@@ -30,9 +30,9 @@ protected:
 	QList<shared_ptr<IQFEvent>> m_reminderSignals;
 	QString uniqueTraceName = "";
 	bool simulation;
-	QFState targetState;
-	QFState stateHistory;
-	QFState stateRetry;
+	QString targetState;
+	QString stateHistory;
+	QString stateRetry;
 
 
 

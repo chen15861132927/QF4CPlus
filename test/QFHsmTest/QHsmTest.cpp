@@ -15,22 +15,12 @@ shared_ptr<TransitionChain> QHsmTest::s_Tran_sBA_sA = nullptr;
 shared_ptr<TransitionChain> QHsmTest::s_Tran_sBB_sBA = nullptr;
 QHsmTest::QHsmTest()
 {
-	m_sA = QFState((QStateBase)sA, "sA");
-
-	//Q_SET(m_sA, sA);
-	Q_SET(m_sAA, sAA);
-	Q_SET(m_sAB, sAB);
-	Q_SET(m_sB, sB);
-	Q_SET(m_sBA, sBA);
-	Q_SET(m_sBB, sBB);
-
 	QF::getInstance()->Subscribe(this, MyQSignals::E1_Sig);
 	QF::getInstance()->Subscribe(this, MyQSignals::E2_Sig);
 	QF::getInstance()->Subscribe(this, MyQSignals::E3_Sig);
 	QF::getInstance()->Subscribe(this, MyQSignals::E4_Sig);
 	QF::getInstance()->Subscribe(this, MyQSignals::E5_Sig);
 	QF::getInstance()->Subscribe(this, MyQSignals::E6_Sig);
-
 }
 
 QHsmTest::~QHsmTest()
@@ -44,7 +34,7 @@ void QHsmTest::InitializeStateMachine()
 	InitializeState(m_sA); // initial transition			
 }
 
-QFState QHsmTest::sA_handle(shared_ptr<IQFEvent> qEvent)
+QString QHsmTest::sA(shared_ptr<IQFEvent> qEvent)
 {
 	if (qEvent->signal() == QSignals::Entry)
 	{
@@ -71,7 +61,7 @@ QFState QHsmTest::sA_handle(shared_ptr<IQFEvent> qEvent)
 
 	return this->TopState;
 }
-QFState QHsmTest::sAA_handle(shared_ptr<IQFEvent> qEvent)
+QString QHsmTest::sAA(shared_ptr<IQFEvent> qEvent)
 {
 	if (qEvent->signal() == QSignals::Entry)
 	{
@@ -94,7 +84,7 @@ QFState QHsmTest::sAA_handle(shared_ptr<IQFEvent> qEvent)
 }
 
 
-QFState QHsmTest::sAB_handle(shared_ptr<IQFEvent> qEvent)
+QString QHsmTest::sAB (shared_ptr<IQFEvent> qEvent)
 {
 	if (qEvent->signal() == QSignals::Entry)
 	{
@@ -121,9 +111,7 @@ QFState QHsmTest::sAB_handle(shared_ptr<IQFEvent> qEvent)
 	return m_sA;
 }
 
-//private static TransitionChain s_Tran_s2_s1;
-//private static TransitionChain s_Tran_s2_s11;
-QFState QHsmTest::sB_handle(shared_ptr<IQFEvent> qEvent)
+QString QHsmTest::sB (shared_ptr<IQFEvent> qEvent)
 {
 	if (qEvent->signal() == QSignals::Entry)
 	{
@@ -144,7 +132,7 @@ QFState QHsmTest::sB_handle(shared_ptr<IQFEvent> qEvent)
 
 	return this->TopState;
 }
-QFState QHsmTest::sBA_handle(shared_ptr<IQFEvent> qEvent)
+QString QHsmTest::sBA(shared_ptr<IQFEvent> qEvent)
 {
 	if (qEvent->signal() == QSignals::Entry)
 	{
@@ -170,7 +158,7 @@ QFState QHsmTest::sBA_handle(shared_ptr<IQFEvent> qEvent)
 	}
 	return m_sB;
 }
-QFState QHsmTest::sBB_handle(shared_ptr<IQFEvent> qEvent)
+QString QHsmTest::sBB (shared_ptr<IQFEvent> qEvent)
 {
 	if (qEvent->signal() == QSignals::Entry)
 	{

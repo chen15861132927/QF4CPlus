@@ -89,7 +89,7 @@
     <ClCompile Include="QHsmTest.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="QHsmTest.h" />
+    <QtMoc Include="QHsmTest.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\QF4CPlus\QF4CPlus.vcxproj">

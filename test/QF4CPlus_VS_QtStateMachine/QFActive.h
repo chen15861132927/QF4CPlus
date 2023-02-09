@@ -24,25 +24,41 @@ public:
 private:
 	int count = 0;
 	std::chrono::steady_clock::time_point startTime;
-	QFState m_sTestState;
-	QFState m_sA;
-	QFState m_sB;
-	QFState m_sC;
-	QFState m_sD;
-	QFState m_sE;
-	QFState m_sF;
-	QFState m_sfinal;
+	/*const QString m_sTestState="sTestState";
+	const QString m_sA="sA";
+	const QString m_sB="sB";
+	const QString m_sC="sC";
+	const QString m_sD="sD";
+	const QString m_sE="sE";
+	const QString m_sF="sF";
+	const QString m_sfinal = "sfinal";*/
 protected:
 	void InitializeStateMachine() override;
+	Q_STATE_DECL(sTestState);
+	Q_STATE_DECL(sA);
+	Q_STATE_DECL(sB);
+	Q_STATE_DECL(sC);
+	Q_STATE_DECL(sD);
+	Q_STATE_DECL(sE);
+	Q_STATE_DECL(sF);
+	Q_STATE_DECL(sfinal);
 
-	Q_STATE_DECL(QFActive, sTestState);
-	Q_STATE_DECL(QFActive, sA);
-	Q_STATE_DECL(QFActive, sB);
-	Q_STATE_DECL(QFActive, sC);
-	Q_STATE_DECL(QFActive, sD);
-	Q_STATE_DECL(QFActive, sE);
-	Q_STATE_DECL(QFActive, sF);
-	Q_STATE_DECL(QFActive, sfinal);
+
+	//Q_INVOKABLE QString sTestState(shared_ptr<IQFEvent> qEvent);
+
+	//Q_INVOKABLE QString sA(shared_ptr<IQFEvent> qEvent);
+
+	//Q_INVOKABLE QString sB(shared_ptr<IQFEvent> qEvent);
+
+	//Q_INVOKABLE QString sC(shared_ptr<IQFEvent> qEvent);
+
+	//Q_INVOKABLE QString sD(shared_ptr<IQFEvent> qEvent);
+
+	//Q_INVOKABLE QString sE(shared_ptr<IQFEvent> qEvent);
+
+	//Q_INVOKABLE QString sF(shared_ptr<IQFEvent> qEvent);
+
+	//Q_INVOKABLE QString sfinal(shared_ptr<IQFEvent> qEvent);
 
 
 //shared_ptr<TransitionChain> s_Tran_sTestState_sA=nullptr;

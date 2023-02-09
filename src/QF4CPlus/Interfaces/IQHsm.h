@@ -2,8 +2,8 @@
 #include <QString>
 #include "qf4cplus_global.h"
 #include <QObject>
-#include "QState.h"
-
+#include <memory>
+#include "IQFEvent.h"
 namespace QtQf4CPlus
 {
 	class QF4CPLUS_EXPORT IQHsm
@@ -12,11 +12,11 @@ namespace QtQf4CPlus
 	public:
 		virtual void Init() = 0;
 
-		virtual bool IsInState(QFState inquiredState) = 0;
+		virtual bool IsInState(QString inquiredState) = 0;
 
 		virtual void InitializeStateMachine() = 0;
-		virtual void Dispatch(shared_ptr<IQFEvent> qEvent) = 0;
+		virtual void Dispatch(std::shared_ptr<IQFEvent> qEvent) = 0;
 
-		virtual void DispatchSynchronized(shared_ptr<IQFEvent> qEvent) = 0;
+		virtual void DispatchSynchronized(std::shared_ptr<IQFEvent> qEvent) = 0;
 	};
 };

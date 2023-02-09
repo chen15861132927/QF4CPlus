@@ -113,7 +113,6 @@
     <QtMoc Include="QFTimer.h" />
     <QtMoc Include="QFEvent.h" />
     <QtMoc Include="QHsm.h" />
-    <ClInclude Include="QState.h" />
     <ClInclude Include="QSignals.h" />
     <ClInclude Include="TransitionChain.h" />
     <QtMoc Include="QSignal.h" />
