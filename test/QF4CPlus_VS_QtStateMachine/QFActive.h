@@ -5,7 +5,7 @@ class QFActive:public QActive
 {
 	 Q_OBJECT
 	 static shared_ptr<QSignal>  E1_Sig;
-	 static shared_ptr<QSignal>  SigStateJob;
+	 static shared_ptr<QSignal>  SigStateRun;
 
 	 
 public:

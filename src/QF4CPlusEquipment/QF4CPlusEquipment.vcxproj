@@ -87,10 +87,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="ActiveProcess.h" />
+    <ClCompile Include="WorkcellBase.cpp" />
+    <QtMoc Include="WorkcellBase.h" />
+    <QtMoc Include="ActiveProcess.h" />
+    <QtMoc Include="EquipmentActiveBase.h" />
     <ClInclude Include="qf4cplusequipment_global.h" />
     <ClInclude Include="QF4CPlusEquipment.h" />
     <ClCompile Include="ActiveProcess.cpp" />
+    <ClCompile Include="EquipmentActiveBase.cpp" />
     <ClCompile Include="QF4CPlusEquipment.cpp" />
   </ItemGroup>
   <ItemGroup>
