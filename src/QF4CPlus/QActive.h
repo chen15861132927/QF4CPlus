@@ -7,7 +7,7 @@
 #include "Interfaces/IQEventQueue.h"
 #include <QThread>
 #include <qDebug>
-
+#include "QActiveThread.h"
 namespace QtQf4CPlus
 {
 	class QActiveThread;
@@ -31,6 +31,12 @@ namespace QtQf4CPlus
 
 		void postLIFO(shared_ptr<IQFEvent> qEvent);
 
+	protected:
+		void Join()
+		{
+			if(m_ExecutionThread!=nullptr)
+				m_ExecutionThread->wait();
+		}
 	};
 	
 

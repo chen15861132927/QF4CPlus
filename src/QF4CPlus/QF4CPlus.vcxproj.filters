@@ -25,9 +25,6 @@
     <ClInclude Include="qf4cplus_global.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="QState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="QSignals.h">
       <Filter>Header Files</Filter>
     </ClInclude>

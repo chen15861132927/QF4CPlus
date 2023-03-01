@@ -14,40 +14,22 @@ public:
 	static shared_ptr<QSignal>  H_Sig;
 };
 
-class QHsmTest :	public QActive
+class QHsmTest :public QActive
 {
+	Q_OBJECT;
 public:
 	QHsmTest();
 	~QHsmTest();
 
-private:
 
-	QFState m_sA;
-	QFState m_sAA;
-	QFState m_sAB;
-	QFState m_sB;
-	QFState m_sBA;
-	QFState m_sBB;
 protected:
 	void InitializeStateMachine() override;
-
-	QFState sA_handle(shared_ptr<IQFEvent> qEvent);
-	Q_STATE_S_DECL(QHsmTest, sA, sA_handle);
-
-	QFState sAA_handle(shared_ptr<IQFEvent> qEvent);
-	Q_STATE_S_DECL(QHsmTest, sAA, sAA_handle);
-
-	QFState sAB_handle(shared_ptr<IQFEvent> qEvent);
-	Q_STATE_S_DECL(QHsmTest, sAB, sAB_handle);
-
-	QFState sB_handle(shared_ptr<IQFEvent> qEvent);
-	Q_STATE_S_DECL(QHsmTest, sB, sB_handle);
-
-	QFState sBA_handle(shared_ptr<IQFEvent> qEvent);
-	Q_STATE_S_DECL(QHsmTest, sBA, sBA_handle);
-
-	QFState sBB_handle(shared_ptr<IQFEvent> qEvent);
-	Q_STATE_S_DECL(QHsmTest, sBB, sBB_handle);
+	Q_STATE_DECL(sA);
+	Q_STATE_DECL(sAA);
+	Q_STATE_DECL(sAB);
+	Q_STATE_DECL(sB);
+	Q_STATE_DECL(sBA);
+	Q_STATE_DECL(sBB);
 
 
 	static shared_ptr<TransitionChain> s_Tran_sAB_sAA;

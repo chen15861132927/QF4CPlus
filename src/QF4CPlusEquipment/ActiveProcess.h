@@ -1,39 +1,26 @@
 #pragma once
-#include "../QF4CPlus/QActive.h"
+#include "EquipmentActiveBase.h"
 #include "qf4cplusequipment_global.h"
-
+#include <QThread>
+#include "../QF4CPlus/QF.h"
 using namespace QtQf4CPlus;
-class QF4CPLUSEQUIPMENT_EXPORT ActiveProcess : public QActive
+class QF4CPLUSEQUIPMENT_EXPORT ActiveProcess : public EquipmentActiveBase
 {
-public:
-	static shared_ptr<QSignal> SigInitialized;  //= new Signal("Initialized");
-	static shared_ptr<QSignal> SigStart;        //= new Signal("Start");
-	static shared_ptr<QSignal> SigStop;         //= new Signal("Stop");
-	static shared_ptr<QSignal> SigAbort;        //= new Signal("Abort");
-	static shared_ptr<QSignal> SigPause;        //= new Signal("Pause");
-	static shared_ptr<QSignal> SigResume;       //= new Signal("Resume");
+	Q_OBJECT;
 
-	ActiveProcess()
-	{
-		//uniqueTraceName = QString("%1-%2").arg(base.ToString()).arg(this.GetHashCode());
-	}
-
-	ActiveProcess(string name)
-	{
-		//uniqueTraceName = QString.Format("{0}-{1}", base.ToString(), name);
-	}
 protected:
-	const shared_ptr<QSignal> SigStateJob = std::make_shared<QSignal>("StateJob");
-	const shared_ptr<QSignal> SigError = std::make_shared<QSignal>("Error");
-	const shared_ptr<QSignal> SigRecover = std::make_shared<QSignal>("Recover");
-
-	QList<shared_ptr<IQFEvent>> m_reminderSignals;
-	QString uniqueTraceName = "";
-	bool simulation;
-	QFState targetState;
-	QFState stateHistory;
-	QFState stateRetry;
-
+	Q_STATE_DECL(stateInit);
+	Q_STATE_DECL(stateIdle);
+	Q_STATE_DECL(stateIdleWithError);
+	Q_STATE_DECL(stateActive);
+	Q_STATE_DECL(stateProcess);
+	Q_STATE_DECL(stateRunInit);
+	Q_STATE_DECL(stateRun);
+	Q_STATE_DECL(statePaused);
+	Q_STATE_DECL(stateError);
+	Q_STATE_DECL(statePause);
+	Q_STATE_DECL(stateAborting);
+	Q_STATE_DECL(stateStopping);
 
 
 };
