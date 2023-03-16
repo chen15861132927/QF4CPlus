@@ -24,25 +24,25 @@ void QF::Initialize(int maxSignal)
 {
 	for (int i = 0; i < maxSignal; i++)
 	{
-		_mSignalSubscribers.insert(i, QHash<int, QActive*>());
+		_mSignalSubscribers.insert(i, QHash<int, std::shared_ptr<QActive>>());
 	}
 }
 
-void QF::Subscribe(QActive* qActive, shared_ptr<QSignal> qSignal)
+void QF::Subscribe(std::shared_ptr<QActive> qActive, shared_ptr<QSignal> qSignal)
 {
 	mutex.lock();
 	auto findsignals = _mSignalSubscribers.find(qSignal->GetHashCode());
 	if (findsignals == _mSignalSubscribers.end())
 	{
 		// this is the first time that somebody subscribes for this signal
-		_mSignalSubscribers.insert(qSignal->GetHashCode(), QHash<int, QActive*>());
+		_mSignalSubscribers.insert(qSignal->GetHashCode(), QHash<int, std::shared_ptr<QActive>>());
 		findsignals = _mSignalSubscribers.find(qSignal->GetHashCode());
 	}
 
 	findsignals->insert(qActive->getPriority(), qActive);
 	mutex.unlock();
 }
-void QF::Unsubscribe(QActive* qActive, shared_ptr<QSignal> qSignal)
+void QF::Unsubscribe(std::shared_ptr<QActive> qActive, shared_ptr<QSignal> qSignal)
 {
 	mutex.lock();
 	auto findsignals = _mSignalSubscribers.find(qSignal->GetHashCode());

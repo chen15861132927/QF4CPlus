@@ -12,9 +12,9 @@ namespace QtQf4CPlus
 	public:
 		virtual	void Initialize(int maxSignal) = 0;
 
-		virtual	void Subscribe(QActive* qActive, shared_ptr<QSignal> qSignal) = 0;
+		virtual	void Subscribe(std::shared_ptr<QActive> qActive, shared_ptr<QSignal> qSignal) = 0;
 
-		virtual	void Unsubscribe(QActive* qActive, shared_ptr<QSignal> qSignal) = 0;
+		virtual	void Unsubscribe(std::shared_ptr<QActive> qActive, shared_ptr<QSignal> qSignal) = 0;
 
 		virtual void Publish(shared_ptr<QFEvent> qEvent)=0;
 	};

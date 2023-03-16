@@ -18,15 +18,15 @@ namespace QtQf4CPlus
 	  static QF* qinstance;
 	  QMutex mutex;
 
-	  QHash<int, QHash<int, QActive*>> _mSignalSubscribers;
+	  QHash<int, QHash<int, std::shared_ptr<QActive>>> _mSignalSubscribers;
 	public:
  
 		static QF* getInstance();
 		void Initialize(int maxSignal);
 
-		void Subscribe(QActive* qActive, shared_ptr<QSignal> qSignal);
+		void Subscribe(std::shared_ptr<QActive> qActive, shared_ptr<QSignal> qSignal);
 
-		void Unsubscribe(QActive* qActive, shared_ptr<QSignal> qSignal);
+		void Unsubscribe(std::shared_ptr<QActive> qActive, shared_ptr<QSignal> qSignal);
 
 		void Publish(shared_ptr<QFEvent> qEvent);
 	};

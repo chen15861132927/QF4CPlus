@@ -9,11 +9,22 @@ using namespace QtQf4CPlus;
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
-	QHsmTest hsm;
-	hsm.start(1);
+	QList<std::shared_ptr<QHsmTest>> actives;
+	for (int i = 0; i < 1000; i++)
+	{
+		auto act = std::make_shared<QHsmTest>();
+		act->setObjectName(QString("QHsmTest%1").arg(i));
+		actives.append(act);
+	}
+	for (int i = 0; i < actives.length(); i++)
+	{
+		actives[i]->start(i);
+	}
+
 	for (;;)
 	{
-		cout<<"currentThreadId:" << QThread::currentThreadId()<<endl << "Signal<-";
+		qDebug() << "ThreadObjectName:" << QThread::currentThread()->objectName()  << endl << "input Signal(1-5):";
+
 		char inputchar;
 		cin >> inputchar;
 		if (inputchar == -1)

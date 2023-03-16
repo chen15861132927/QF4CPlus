@@ -12,7 +12,7 @@ class QF4CPlus_VS_QtStateMachine : public QMainWindow
        
 public:
     QF4CPlus_VS_QtStateMachine(QWidget *parent = Q_NULLPTR);
-    QFActive qFActive;
+    std::shared_ptr<QFActive> qFActive;
     QtStateActive qtStateActive;
 
     static int TestCount;

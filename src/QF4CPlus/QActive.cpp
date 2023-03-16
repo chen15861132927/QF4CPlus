@@ -19,7 +19,15 @@ int QActive::getPriority()
 {
 	return m_index;
 }
-
+QString QActive::objectName() const
+{
+	return m_ExecutionThread->objectName();
+}
+void QActive::setObjectName(const QString& name)
+{
+	QHsm::setObjectName(name);
+	m_ExecutionThread->setObjectName(name);
+}
 void QActive::start(int index)
 {
 	/*if (m_ExecutionThread != nullptr)

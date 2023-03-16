@@ -14,3 +14,7 @@
 /test/QF4CPlus_VS_QtStateMachine/Debug
 /src/QF4CPlusEquipment/Release
 /src/QF4CPlusEquipment/Debug
+Release/QF4CPlus.dll
+Release/QF4CPlus.exp
+Release/QF4CPlus.lib
+Release/QFHsmTest.exe

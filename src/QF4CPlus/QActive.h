@@ -11,7 +11,7 @@
 namespace QtQf4CPlus
 {
 	class QActiveThread;
-	class QF4CPLUS_EXPORT QActive :  public QHsm, public IQActive
+	class QF4CPLUS_EXPORT QActive :  public QHsm, public IQActive,public enable_shared_from_this<QActive>
 	{
 		Q_OBJECT
 	private:
@@ -24,7 +24,8 @@ namespace QtQf4CPlus
 		QActive();
 		~QActive();
 		int getPriority();
-
+		QString objectName() const;
+		void setObjectName(const QString& name);
 		void start(int index);
 
 		void postFIFO(shared_ptr<IQFEvent> qEvent);
